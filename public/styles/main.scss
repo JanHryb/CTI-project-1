@@ -1,12 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+// https://colorhunt.co/palette/0000003e065f700b978e05c2
 
-*{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
-    word-wrap: break-word;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  word-wrap: break-word;
 }
 
-body{
-    font-family: 'Montserrat', sans-serif;
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1 0 auto;
+}
+
+.navbar {
+  display: flex;
+  height: 65px;
+  padding: 0 6em 0 6em;
+  position: sticky;
+  top: 0;
+  z-index: 2147483647;
+  box-shadow: 0 0 8px 0 #cccccc;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    i {
+      color: #000000;
+      font-size: 1.4em;
+    }
+  }
+  .menu {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 50%;
+    list-style: none;
+    li {
+      margin-right: 2em;
+      a {
+        text-transform: capitalize;
+        color: #000000;
+        text-decoration: none;
+        // i {
+        // }
+      }
+      a:hover {
+        color: #892cdc;
+        transition: color 0.2s;
+      }
+    }
+    li:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.main {
+  h1 {
+    text-align: center;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  height: 55px;
+  background-color: #000000;
+  color: #ffffff;
 }

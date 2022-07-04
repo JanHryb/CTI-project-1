@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/headConfig') %>
+    <title>register</title>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('../partials/navbar') %>
+      <main class="main">
+        <form action="/user/register" method="post">
+          <div class="form-wrapper">
+            <h2>register</h2>
+          </div>
+          <% if (messages.error) { %>
+          <div class="form-wrapper">
+            <p class="message-error"><%= messages.error %></p>
+          </div>
+          <% } %>
+          <div class="form-wrapper">
+            <label for="firstName">first name</label>
+            <input type="text" name="firstName" id="firstName" required />
+          </div>
+          <div class="form-wrapper">
+            <label for="lastName">last name</label>
+            <input type="text" name="lastName" id="lastName" required />
+          </div>
+          <div class="form-wrapper">
+            <label for="email">email</label>
+            <input type="email" name="email" id="email" />
+          </div>
+          <div class="form-wrapper">
+            <label for="password">password</label>
+            <input type="password" name="password" id="password" required />
+          </div>
+          <div class="form-wrapper">
+            <label for="passwordRepeat">repeat password</label>
+            <input
+              type="password"
+              name="passwordRepeat"
+              id="passwordRepeat"
+              required
+            />
+          </div>
+          <div class="form-wrapper">
+            <button type="submit">Create account</button>
+          </div>
+        </form>
+      </main>
+    </div>
+    <%- include('../partials/footer') %>
+  </body>
+</html>
