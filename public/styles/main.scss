@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
-// https://colorhunt.co/palette/0000003e065f700b978e05c2
+// https://colorhunt.co/palette/00000052057b892cdcbc6ff1
 
 * {
   margin: 0;
@@ -37,41 +37,97 @@ body {
     display: flex;
     align-items: center;
     width: 50%;
-    i {
-      color: #000000;
-      font-size: 1.4em;
+    .logo-link {
+      i {
+        color: #000000;
+        font-size: 1.4em;
+      }
     }
   }
-  .menu {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    width: 50%;
-    list-style: none;
-    li {
-      margin-right: 2em;
-      a {
-        text-transform: capitalize;
+}
+.menu {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 50%;
+  list-style: none;
+  .menu-item {
+    margin-right: 2em;
+    .menu-link {
+      text-transform: capitalize;
+      color: #000000;
+      text-decoration: none;
+      i {
         color: #000000;
-        text-decoration: none;
-        // i {
-        // }
       }
-      a:hover {
+      i:hover {
         color: #892cdc;
         transition: color 0.2s;
       }
     }
-    li:last-child {
-      margin-right: 0;
+    .menu-link:hover {
+      color: #892cdc;
+      transition: color 0.2s;
     }
+  }
+  .menu-item:last-child {
+    margin-right: 0;
+  }
+  .menu-item-user {
+    position: relative;
+    .dropdown-menu {
+      position: absolute;
+      left: -25px;
+      list-style: none;
+      background-color: #000000;
+      border-radius: 5px;
+      padding: 0.8em;
+      // display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      display: none;
+      .dropdown-menu-item {
+        margin-top: 0.2em;
+        .dropdown-menu-link {
+          font-size: 0.95em;
+          text-decoration: none;
+          color: #ffffff;
+        }
+      }
+      .dropdown-menu-item:first-child {
+        margin: 0;
+      }
+    }
+  }
+  .menu-item-user:hover .dropdown-menu {
+    display: flex;
   }
 }
 
 .main {
-  h1 {
-    text-align: center;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  .heading-wrapper {
+    .heading {
+      text-align: center;
+    }
   }
+}
+
+.message-error {
+  color: #d32626;
+  font-size: 0.9em;
+}
+
+.message-success {
+  color: #22be22;
+  font-size: 0.9em;
 }
 
 .footer {

@@ -1,0 +1,72 @@
+.main {
+  height: calc(100% - 120px);
+}
+.form {
+  padding: 2em;
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  .form-wrapper {
+    width: 100%;
+    margin-top: 1.5em;
+    .form-heading {
+      text-transform: capitalize;
+      text-align: center;
+    }
+    .form-label {
+      font-size: 0.95em;
+      color: #892cdc;
+    }
+    .form-input {
+      font-size: 1em;
+      padding-top: 0.15em;
+      padding-bottom: 0.15em;
+      border: none;
+      border-bottom: 2px solid #892cdc;
+      outline: none;
+      width: 300px;
+    }
+    .form-button {
+      font-size: 1em;
+      width: 300px;
+      border: none;
+      padding: 1.25em 1.25em;
+      border-radius: 5px;
+      background-color: #892cdc;
+      color: white;
+    }
+    .form-button:hover {
+      cursor: pointer;
+    }
+    .form-link {
+      color: #892cdc;
+    }
+  }
+  .form-wrapper:first-child {
+    margin: 0;
+  }
+  .form-wrapper:last-child {
+    margin-top: 0.5em;
+  }
+  .form-wrapper::first-letter {
+    text-transform: uppercase;
+  }
+  .form-wrapper-chcekbox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .form-input-checkbox {
+      accent-color: #892cdc;
+      width: 16px;
+      height: 16px;
+      margin-right: 1em;
+    }
+    .form-label-checkbox:hover,
+    .form-input-checkbox:hover {
+      cursor: pointer;
+    }
+  }
+}

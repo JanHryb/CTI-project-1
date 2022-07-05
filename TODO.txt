@@ -1,3 +1,4 @@
-dokonczyc register.ejs -> value="local variable"
-zrobic lepszy error handling https://www.npmjs.com/package/http-errors albo cos innego
-ostylowac forma
+sql -> zrobic tabele z produktami
+zrobic i ostylowac cart -> front
+shopping cart logic -> backend
+filtrowanie produktów

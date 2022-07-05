@@ -1,6 +1,6 @@
-drop database if exists store;
-create database store;
-use store;
+drop database if exists store_cti;
+create database store_cti;
+use store_cti;
 
 create table users  (user_id int auto_increment not null,
                     user_first_name varchar(50) not null,
@@ -8,6 +8,8 @@ create table users  (user_id int auto_increment not null,
                     user_email varchar(50) not null,
                     user_password varchar(60) not null, /*VARCHAR shloud be set on 60(no more no less) characters because of bcrypt libary!*/
                     user_superuser boolean not null, 
+                    user_verified boolean not null,
+                    user_created_at timestamp default current_timestamp not null,
                     primary key (user_id));
 
 create table address    (address_id int auto_increment not null,

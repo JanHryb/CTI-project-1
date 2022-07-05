@@ -1,19 +1,36 @@
 <nav class="navbar">
   <div class="logo-wrapper">
-    <a href="/"><i class="fa-solid fa-eye"></i></a>
+    <a href="/" class="logo-link"><i class="fa-solid fa-eye"></i></a>
   </div>
   <ul class="menu">
-    <li><a href="/">home</a></li>
-    <li><a href="/store">store</a></li>
-    <li><a href="/about">about</a></li>
-    <li>
-      <a href="/user/login"><i class="fa-solid fa-user"></i></a>
-    </li>
-    <li>
-      <a href="/user/favourites"><i class="fa-solid fa-heart"></i></a>
-    </li>
-    <li>
-      <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
-    </li>
+    <li class="menu-item"><a href="/" class="menu-link">home</a></li>
+    <li class="menu-item"><a href="/store" class="menu-link">store</a></li>
+    <li class="menu-item"><a href="/about" class="menu-link">about</a></li>
+    <% if( messages.authenticated=='true' ){ %>
+      <li class="menu-item menu-item-user">
+        <a href="/user" class="menu-link"><i class="fa-solid fa-user"></i></a>
+        <ul class="dropdown-menu">
+          <li class="dropdown-menu-item"><a href="/user" class="dropdown-menu-link">Profile</a>
+          <li class="dropdown-menu-item"><a href="/user/orders" class="dropdown-menu-link">Orders</a>
+          <li class="dropdown-menu-item"><a href="/user/favourites" class="dropdown-menu-link">Favourites</a>
+          <li class="dropdown-menu-item"><a href="/user/logout" class="dropdown-menu-link">Log out</a>
+          </li>
+        </ul>
+      </li>
+      <% }else if(messages.authenticated=='false' ){ %>
+        <li class="menu-item menu-item-user">
+          <a href="/user/login" class="menu-link"><i class="fa-solid fa-user"></i></a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-menu-item"><a href="/user/login" class="dropdown-menu-link">Login</a>
+            </li>
+          </ul>
+        </li>
+        <% } %>
+          <li class="menu-item">
+            <a href="/user/favourites" class="menu-link"><i class="fa-solid fa-heart"></i></a>
+          </li>
+          <li class="menu-item">
+            <a href="/cart" class="menu-link"><i class="fa-solid fa-cart-shopping"></i></a>
+          </li>
   </ul>
 </nav>

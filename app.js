@@ -20,7 +20,7 @@ app.use(
       host: "localhost",
       user: "root",
       password: "",
-      database: "store",
+      database: "store_cti",
       checkExpirationInterval: 10,
       clearExpired: true,
     }),
@@ -31,7 +31,15 @@ app.use(
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.authenticate("session"));
-// passport config
+require("./config/passport");
+app.use((req, res, next) => {
+  if (req.isAuthenticated()) {
+    req.flash("authenticated", "true");
+  } else {
+    req.flash("authenticated", "false");
+  }
+  return next();
+});
 
 app.use("/", require("./routes/index"));
 app.use("/user", require("./routes/user"));
