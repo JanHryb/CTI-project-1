@@ -14,8 +14,4 @@ document.addEventListener("DOMContentLoaded", () => {
   dropdownMenu.addEventListener("mouseenter", () => {
     userIcon.style.color = "#892cdc";
   });
-
-  dropdownMenu.addEventListener("mouseleave", () => {
-    userIcon.style.color = "#000000";
-  });
 });

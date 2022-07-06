@@ -7,8 +7,7 @@ const passport = require("passport");
 const auth = require("../config/auth");
 
 router.get("/", auth.authenticated, (req, res) => {
-  //console.log(req.user);
-  return res.status(httpStatusCodes.OK).render("user/profile");
+  return res.status(httpStatusCodes.OK).render("user/profile", req.user);
 });
 
 router.get("/orders", auth.authenticated, (req, res) => {
@@ -38,47 +37,58 @@ router.get("/logout", auth.authenticated, (req, res, next) => {
 });
 
 router.post("/register", (req, res) => {
-  const { firstName, lastName, email, password, passwordRepeat } = req.body;
+  let { firstName, lastName, email, password, passwordRepeat } = req.body;
+  const hasWhiteSpace = (str) => {
+    return str.indexOf(" ") >= 0;
+  };
+  const capitalizeFirstLetter = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+  firstName = capitalizeFirstLetter(firstName);
+  lastName = capitalizeFirstLetter(lastName);
+  email = email.toLowerCase();
 
+  if (hasWhiteSpace(firstName)) {
+    req.flash("error", "first name can't contain space");
+    return res
+      .status(httpStatusCodes.BadRequest)
+      .render("user/register", req.body);
+  }
+  if (hasWhiteSpace(lastName)) {
+    req.flash("error", "last name can't contain space");
+    return res
+      .status(httpStatusCodes.BadRequest)
+      .render("user/register", req.body);
+  }
+  if (hasWhiteSpace(email)) {
+    req.flash("error", "email can't contain space");
+    return res
+      .status(httpStatusCodes.BadRequest)
+      .render("user/register", req.body);
+  }
   if (firstName.length < 3) {
     req.flash("error", "first name should contain at least 3 characters");
-    return res.status(httpStatusCodes.BadRequest).render("user/register", {
-      firstName,
-      lastName,
-      email,
-      password,
-      passwordRepeat,
-    });
+    return res
+      .status(httpStatusCodes.BadRequest)
+      .render("user/register", req.body);
   }
   if (lastName.length < 2) {
     req.flash("error", "last name should contain at least 2 characters");
-    return res.status(httpStatusCodes.BadRequest).render("user/register", {
-      firstName,
-      lastName,
-      email,
-      password,
-      passwordRepeat,
-    });
+    return res
+      .status(httpStatusCodes.BadRequest)
+      .render("user/register", req.body);
   }
   if (password.length < 6) {
     req.flash("error", "password should contain at least 6 characters");
-    return res.status(httpStatusCodes.BadRequest).render("user/register", {
-      firstName,
-      lastName,
-      email,
-      password,
-      passwordRepeat,
-    });
+    return res
+      .status(httpStatusCodes.BadRequest)
+      .render("user/register", req.body);
   }
   if (password !== passwordRepeat) {
     req.flash("error", "passwords aren't equal");
-    return res.status(httpStatusCodes.BadRequest).render("user/register", {
-      firstName,
-      lastName,
-      email,
-      password,
-      passwordRepeat,
-    });
+    return res
+      .status(httpStatusCodes.BadRequest)
+      .render("user/register", req.body);
   }
 
   database.query(
@@ -91,13 +101,9 @@ router.post("/register", (req, res) => {
       const user = result[0];
       if (user) {
         req.flash("user with that email already exist");
-        return res.status(httpStatusCodes.BadRequest).render("user/register", {
-          firstName,
-          lastName,
-          email,
-          password,
-          passwordRepeat,
-        });
+        return res
+          .status(httpStatusCodes.BadRequest)
+          .render("user/register", req.body);
       }
       bcrypt.hash(password, 10, (err, hash) => {
         if (err) {

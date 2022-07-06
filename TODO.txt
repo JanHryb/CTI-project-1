@@ -1,4 +1,3 @@
-sql -> zrobic tabele z produktami
-zrobic i ostylowac cart -> front
+zrobic i ostylowac card -> front
 shopping cart logic -> backend
 filtrowanie produktów

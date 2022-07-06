@@ -33,16 +33,14 @@ app.use(passport.initialize());
 app.use(passport.authenticate("session"));
 require("./config/passport");
 app.use((req, res, next) => {
-  if (req.isAuthenticated()) {
-    req.flash("authenticated", "true");
-  } else {
-    req.flash("authenticated", "false");
-  }
+  res.locals.authenticated = req.isAuthenticated();
   return next();
 });
 
 app.use("/", require("./routes/index"));
 app.use("/user", require("./routes/user"));
+app.use("/store", require("./routes/store"));
+app.use("/cart", require("./routes/cart"));
 
 app.get("*", (req, res) => {
   return res.status(httpStatusCodes.NotFound).render("notFound");
