@@ -25,7 +25,6 @@ router.get("/", (req, res) => {
     }
     const productCategories = result;
 
-    // console.log('value = "' + orderBy(req.query.sort) + '"');
     let productCategoriesRoutes = [];
     productCategories.forEach((category) => {
       const route =
@@ -79,7 +78,6 @@ router.get("/:category", (req, res, next) => {
       const category = result[0];
       if (category != undefined) {
         const sort = req.query.sort;
-        console.log(sort);
         database.query(
           ` select * from products 
             where product_category_id = ${category.product_category_id}

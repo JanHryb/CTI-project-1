@@ -38,9 +38,6 @@ app.use((req, res, next) => {
 });
 app.use((req, res, next) => {
   const url = req.originalUrl;
-  // if (url.includes("//")) {
-  //   return res.redirect("/");
-  // }
   if (url != "/" && url.slice(-1) == "/") {
     const correctUrl = url.slice(0, -1);
     return res.redirect(correctUrl);
