@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/headConfig') %>
+    <link rel="stylesheet" href="/styles/store.css" />
+    <title>shop · <%= category.product_category_name %></title>
+  </head>
+
+  <body>
+      <div class="container">
+      <%- include('../partials/navbar') %>
+      <main class="main">
+        <header class="heading-wrapper">
+          <h1 class="heading"><%= category.product_category_name %></h1>
+        </header>
+        <section class="category-info-wrapper">
+          <p class="category-info-description"><%= category.product_category_description %></p>
+          <img src="<%= category.product_category_image_path %>" alt="<%= category.product_category_name %>" class="category-info-image">
+        </section>
+        <header class="heading-wrapper">
+          <h2 class="heading">Products</h2>
+        </header>
+        <form action="/store/<%= category.product_category_route %>" method="get" class="products-sort-form">
+          <select name="sort" id="products-sort-select" class="products-sort-select" onchange="this.form.submit()">
+            <option value="price_desc" class="products-sort-option" <%= sort == 'price_desc' ? 'selected' : '' %>>price - from the highest</option>
+            <option value="price_asc" class="products-sort-option" <%= sort == 'price_asc' ? 'selected' : '' %>>price - from the lowest</option>
+            <option value="name_asc" class="products-sort-option" <%= sort == 'name_asc' ? 'selected' : '' %>>name A-Z</option>
+            <option value="name_desc" class="products-sort-option" <%= sort == 'name_desc' ? 'selected' : '' %>>name Z-A</option>
+          </select>
+        </form>
+        <section class="products-wrapper">
+          <% products.forEach((product, index)=>{ %>
+          <div class="product-card">
+            <div class="card-icons-wrapper">
+              <!-- TODO: add to fav and add to cart link -->
+              <a href="" class="card-icon-link">
+                <i class="fa-regular fa-heart"></i>
+              </a>
+              <a href="" class="card-icon-link">
+                <i class="fa-solid fa-cart-plus"></i> 
+              </a>
+            </div>
+            <a href="<%= productRoutes[index] %>" class="card-image-link">
+              <img src="<%= product.product_image_path %>" alt="<%= product.product_name %>" class="card-image">
+            </a>
+            <div class="card-description">
+              <a href="<%= productRoutes[index] %>" class="card-description-link">
+                <p class="card-artist"><%= product.product_artist %></p>
+                <h4 class="card-title"><%= product.product_name %></h4>
+              </a>
+              <p class="card-price"><%= product.product_price %> £</p>
+            </div>
+          </div>
+          <% }) %> 
+        </section>
+      </main>
+    </div>
+    
+    <%- include('../partials/footer') %>
+    <%-include('../partials/scriptsConfig')%>
+  </body>
+</html>

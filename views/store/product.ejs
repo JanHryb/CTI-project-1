@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/headConfig') %>
+    <link rel="stylesheet" href="/styles/store.css" />
+    <title>store · <%= product.product_name %></title>
+  </head>
+
+  <body>
+    <div class="container">
+      <%- include('../partials/navbar') %>
+      <main class="main">
+        <section class="product-wrapper">
+          <div class="product-image-wrapper">
+            <div class="card-icons-wrapper">
+              <a href="" class="card-icon-link">
+                <i class="fa-regular fa-heart"></i>
+              </a>
+            </div>
+            <img src="<%= product.product_image_path %>" alt="<%= product.product_name %>" class="product-image">
+          </div>
+          <div class="product-info-wrapper">
+            <header class="heading-wrapper">
+              <h1 class="heading"><%= product.product_name %></h1>
+            </header>
+            <p class="product-artist">Artist: <%= product.product_artist %> </p>
+            <p class="product-release-date">Release date: <%= product.product_release_date.toLocaleDateString() %></p>
+            <h4 class="product-price"><%= product.product_price %> £</h4>
+            <buttton class="product-add-to-cart-btn"><a href="" class="product-add-to-cart-btn-link">Add to cart</a></buttton>
+          </div>
+          <div class="product-description-wrapper">
+            <p class="product-description"><%= product.product_description %></p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <%- include('../partials/footer') %>
+    <%-include('../partials/scriptsConfig')%>
+  </body>
+</html>

@@ -1,67 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <%- include('../partials/headConfig') %>
-    <link rel="stylesheet" href="../public/styles/form.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/headConfig') %>
+    <link rel="stylesheet" href="/styles/form.css" />
     <title>register</title>
-</head>
+  </head>
 
-<body>
-  <div class="container">
-    <%- include('../partials/navbar') %>
+  <body>
+    <div class="container">
+      <%- include('../partials/navbar') %>
       <main class="main">
         <form action="/user/register" method="post" class="form">
           <header class="form-wrapper">
             <h2 class="form-heading">register</h2>
           </header>
           <% if (messages.error) { %>
-            <div class="form-wrapper">
-              <p class="message-error">
-                <%= messages.error %>
-              </p>
-            </div>
-            <% } %>
-              <div class="form-wrapper">
-                <label for="firstName" class="form-label">first name</label>
-                <input type="text" name="firstName" id="firstName"
-                  value="<%= typeof firstName != 'undefined' ? firstName : '' %>" required class="form-input" />
-              </div>
-              <div class="form-wrapper">
-                <label for="lastName" class="form-label">last name</label>
-                <input type="text" name="lastName" id="lastName"
-                  value="<%= typeof lastName != 'undefined' ? lastName : '' %>" required class="form-input" />
-              </div>
-              <div class="form-wrapper">
-                <label for="email" class="form-label">email</label>
-                <input type="email" name="email" value="<%= typeof email != 'undefined' ? email : '' %>" id="email"
-                  required class="form-input" />
-              </div>
-              <div class="form-wrapper">
-                <label for="password" class="form-label">password</label>
-                <input type="password" name="password" value="<%= typeof password != 'undefined' ? password : '' %>"
-                  id="password" required class="form-input" />
-              </div>
-              <div class="form-wrapper">
-                <label for="passwordRepeat" class="form-label">repeat password</label>
-                <input type="password" name="passwordRepeat" id="passwordRepeat"
-                  value="<%= typeof passwordRepeat != 'undefined' ? passwordRepeat : '' %>" required
-                  class="form-input" />
-              </div>
-              <div class="form-wrapper">
-                <button type="submit" class="form-button">Create account</button>
-              </div>
-              <div class="form-wrapper">
-                <p>Already have an account? <a class="form-link" href="/user/login">login</a>
-              </div>
+          <div class="form-wrapper">
+            <p class="message-error"><%= messages.error %></p>
+          </div>
+          <% } %>
+          <div class="form-wrapper">
+            <label for="firstName" class="form-label">first name</label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
+              required
+              class="form-input"
+            />
+          </div>
+          <div class="form-wrapper">
+            <label for="lastName" class="form-label">last name</label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
+              required
+              class="form-input"
+            />
+          </div>
+          <div class="form-wrapper">
+            <label for="email" class="form-label">email</label>
+            <input
+              type="email"
+              name="email"
+              value="<%= typeof email != 'undefined' ? email : '' %>"
+              id="email"
+              required
+              class="form-input"
+            />
+          </div>
+          <div class="form-wrapper">
+            <label for="password" class="form-label">password</label>
+            <input
+              type="password"
+              name="password"
+              value="<%= typeof password != 'undefined' ? password : '' %>"
+              id="password"
+              required
+              class="form-input"
+            />
+          </div>
+          <div class="form-wrapper">
+            <label for="passwordRepeat" class="form-label">repeat password</label>
+            <input
+              type="password"
+              name="passwordRepeat"
+              id="passwordRepeat"
+              value="<%= typeof passwordRepeat != 'undefined' ? passwordRepeat : '' %>"
+              required
+              class="form-input"
+            />
+          </div>
+          <div class="form-wrapper">
+            <button type="submit" class="form-button">Create account</button>
+          </div>
+          <div class="form-wrapper">
+            <p>
+              Already have an account?
+              <a class="form-link" href="/user/login">login</a>
+            </p>
+          </div>
         </form>
       </main>
-  </div>
-  <%- include('../partials/footer') %>
+    </div>
+    <%- include('../partials/footer') %> 
     <%- include('../partials/scriptsConfig') %>
-</body>
-
+  </body>
 </html>

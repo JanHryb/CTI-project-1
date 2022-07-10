@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('../partials/headConfig') %>
-    <link rel="stylesheet" href="../public/styles/store.css" />
+    <link rel="stylesheet" href="/styles/store.css" />
     <title>store</title>
   </head>
 
@@ -13,55 +13,62 @@
     <div class="container">
       <%- include('../partials/navbar') %>
       <main class="main">
-        <section class="product-categories-wrapper">
-          <div class="card">
-            <a href="" class="card-link-wrapper">
+        <header class="heading-wrapper">
+          <h1 class="heading">Product categories</h1>
+        </header>
+        <section class="product-categories-wrapper"> 
+          <% productCategories.forEach((category, index)=>{ %>
+          <div class="product-category-card">
+            <a href="<%= productCategoriesRoutes[index] %>" class="card-link">
               <img
-                src="../public/images/store/product-categories/painting.jpg"
-                alt="painting"
+                src="<%= category.product_category_image_path %>"
+                alt="<%= category.product_category_name %>"
                 class="card-image"
               />
-              <div class="card-info">
-                <h4 class="card-product-category-name">art</h4>
-                <p class="card-product-category-desc">
-                  descdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdesc
-                </p>
-              </div>
+              <h4 class="card-title"><%= category.product_category_name %></h4>
             </a>
           </div>
-          <div class="card">
-            <a href="" class="card-link-wrapper">
-              <img
-                src="../public/images/store/product-categories/sculpture.jpg"
-                alt="painting"
-                class="card-image"
-              />
-              <div class="card-info">
-                <h4 class="card-product-category-name">art</h4>
-                <p class="card-product-category-desc">
-                  descdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdescdesc
-                </p>
-              </div>
-            </a>
-          </div>
-          <div class="card">
-            <a href="" class="card-link-wrapper">
-              <img
-                src="../public/images/store/product-categories/literature.jpg"
-                alt="painting"
-                class="card-image"
-              />
-              <div class="card-info">
-                <h4 class="card-product-category-name">art</h4>
-                <p class="card-product-category-desc">ssadsdas</p>
-              </div>
-            </a>
-          </div>
+          <% }) %> 
         </section>
-        <section class="products-wrapper"></section>
+        <header class="heading-wrapper">
+          <h2 class="heading">Products</h2>
+        </header>
+        <form action="/store" method="get" class="products-sort-form">
+          <select name="sort" id="products-sort-select" class="products-sort-select" onchange="this.form.submit()">
+            <option value="price_desc" class="products-sort-option" <%= sort == 'price_desc' ? 'selected' : '' %>>price - from the highest</option>
+            <option value="price_asc" class="products-sort-option" <%= sort == 'price_asc' ? 'selected' : '' %>>price - from the lowest</option>
+            <option value="name_asc" class="products-sort-option" <%= sort == 'name_asc' ? 'selected' : '' %>>name A-Z</option>
+            <option value="name_desc" class="products-sort-option" <%= sort == 'name_desc' ? 'selected' : '' %>>name Z-A</option>
+          </select>
+        </form>
+        <section class="products-wrapper">
+          <% products.forEach((product, index)=>{ %>
+          <div class="product-card">
+            <div class="card-icons-wrapper">
+              <!-- TODO: add to fav and add to cart link -->
+              <a href="" class="card-icon-link">
+                <i class="fa-regular fa-heart"></i>
+              </a>
+              <a href="" class="card-icon-link">
+                <i class="fa-solid fa-cart-plus"></i> 
+              </a>
+            </div>
+            <a href="<%= productRoutes[index] %>" class="card-image-link">
+              <img src="<%= product.product_image_path %>" alt="<%= product.product_name %>" class="card-image">
+            </a>
+            <div class="card-description">
+              <a href="<%= productRoutes[index] %>" class="card-description-link">
+                <p class="card-artist"><%= product.product_artist %></p>
+                <h4 class="card-title"><%= product.product_name %></h4>
+              </a>
+              <p class="card-price"><%= product.product_price %> £</p>
+            </div>
+          </div>
+          <% }) %> 
+        </section>
       </main>
     </div>
-    <%- include('../partials/footer') %> <%-
-    include('../partials/scriptsConfig') %>
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scriptsConfig') %>
   </body>
 </html>

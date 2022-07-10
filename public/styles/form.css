@@ -7,38 +7,35 @@
   width: -webkit-min-content;
   width: -moz-min-content;
   width: min-content;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-
 .form .form-wrapper {
   width: 100%;
   margin-top: 1.5em;
 }
-
+.form .form-wrapper:first-child {
+  margin: 0;
+}
+.form .form-wrapper:last-child {
+  margin-top: 0.5em;
+}
+.form .form-wrapper::first-letter {
+  text-transform: uppercase;
+}
 .form .form-wrapper .form-heading {
   text-transform: capitalize;
   text-align: center;
 }
-
 .form .form-wrapper .form-label {
   font-size: 0.95em;
   color: #892cdc;
 }
-
 .form .form-wrapper .form-input {
+  font-family: "Montserrat", sans-serif;
   font-size: 1em;
   padding-top: 0.15em;
   padding-bottom: 0.15em;
@@ -47,8 +44,8 @@
   outline: none;
   width: 300px;
 }
-
 .form .form-wrapper .form-button {
+  font-family: "Montserrat", sans-serif;
   font-size: 1em;
   width: 300px;
   border: none;
@@ -57,48 +54,24 @@
   background-color: #892cdc;
   color: white;
 }
-
 .form .form-wrapper .form-button:hover {
   cursor: pointer;
 }
-
 .form .form-wrapper .form-link {
   color: #892cdc;
 }
-
-.form .form-wrapper:first-child {
-  margin: 0;
-}
-
-.form .form-wrapper:last-child {
-  margin-top: 0.5em;
-}
-
-.form .form-wrapper::first-letter {
-  text-transform: uppercase;
-}
-
 .form .form-wrapper-chcekbox {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: flex-start;
+  align-items: center;
 }
-
 .form .form-wrapper-chcekbox .form-input-checkbox {
   accent-color: #892cdc;
   width: 16px;
   height: 16px;
   margin-right: 1em;
 }
-
 .form .form-wrapper-chcekbox .form-label-checkbox:hover,
 .form .form-wrapper-chcekbox .form-input-checkbox:hover {
   cursor: pointer;
-}
-/*# sourceMappingURL=form.css.map */
+}/*# sourceMappingURL=form.css.map */

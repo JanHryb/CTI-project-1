@@ -12,7 +12,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use(express.static(__dirname + "/public"));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -34,6 +34,17 @@ app.use(passport.authenticate("session"));
 require("./config/passport");
 app.use((req, res, next) => {
   res.locals.authenticated = req.isAuthenticated();
+  return next();
+});
+app.use((req, res, next) => {
+  const url = req.originalUrl;
+  // if (url.includes("//")) {
+  //   return res.redirect("/");
+  // }
+  if (url != "/" && url.slice(-1) == "/") {
+    const correctUrl = url.slice(0, -1);
+    return res.redirect(correctUrl);
+  }
   return next();
 });
 

@@ -13,11 +13,13 @@
       <%- include('../partials/navbar') %>
       <main class="main">
         <header class="heading-wrapper">
-          <h1 class="heading">Hi, <%= user_first_name %></h1>
+          <h1 class="heading">
+            Hi, <%= typeof user_first_name !='undefined' ? user_first_name : '' %>
+          </h1>
         </header>
       </main>
     </div>
-    <%- include('../partials/footer') %> <%-
-    include('../partials/scriptsConfig') %>
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scriptsConfig') %>
   </body>
 </html>

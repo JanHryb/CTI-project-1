@@ -1,60 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <%- include('../partials/headConfig') %>
-    <link rel="stylesheet" href="../public/styles/form.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/headConfig') %>
+    <link rel="stylesheet" href="/styles/form.css" />
     <title>login</title>
-</head>
+  </head>
 
-<body>
-  <div class="container">
-    <%- include('../partials/navbar') %>
+  <body>
+    <div class="container">
+      <%- include('../partials/navbar') %>
       <main class="main">
         <form action="/user/login" method="post" class="form">
           <header class="form-wrapper">
             <h2 class="form-heading">login</h2>
           </header>
           <% if (messages.error) { %>
-            <div class="form-wrapper">
-              <p class="message-error">
-                <%= messages.error %>
-              </p>
-            </div>
-            <% } %>
-              <% if (messages.success) { %>
-                <div class="form-wrapper">
-                  <p class="message-success">
-                    <%= messages.success %>
-                  </p>
-                </div>
-                <% } %>
-                  <div class="form-wrapper">
-                    <label for="email" class="form-label">email</label>
-                    <input type="email" name="email" id="email" required class="form-input" />
-                  </div>
-                  <div class="form-wrapper">
-                    <label for="password" class="form-label">password</label>
-                    <input type="password" name="password" id="password" required class="form-input" />
-                  </div>
-                  <div class="form-wrapper form-wrapper-chcekbox">
-                    <input type="checkbox" name="rememberMe" id="rememberMe" class="form-input form-input-checkbox" />
-                    <label for="rememberMe" class="form-label form-label-checkbox">Remember me</label>
-                  </div>
-                  <div class="form-wrapper">
-                    <button type="submit" class="form-button">Login</button>
-                  </div>
-                  <div class="form-wrapper">
-                    <p>Don't have an account? <a class="form-link" href="/user/register">register</a>
-                  </div>
+          <div class="form-wrapper">
+            <p class="message-error"><%= messages.error %></p>
+          </div>
+          <% } %> 
+          <% if (messages.success) { %>
+          <div class="form-wrapper">
+            <p class="message-success"><%= messages.success %></p>
+          </div>
+          <% } %>
+          <div class="form-wrapper">
+            <label for="email" class="form-label">email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              required
+              class="form-input"
+            />
+          </div>
+          <div class="form-wrapper">
+            <label for="password" class="form-label">password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              required
+              class="form-input"
+            />
+          </div>
+          <div class="form-wrapper form-wrapper-chcekbox">
+            <input
+              type="checkbox"
+              name="rememberMe"
+              id="rememberMe"
+              class="form-input form-input-checkbox"
+            />
+            <label for="rememberMe" class="form-label form-label-checkbox"
+              >Remember me</label
+            >
+          </div>
+          <div class="form-wrapper">
+            <button type="submit" class="form-button">Login</button>
+          </div>
+          <div class="form-wrapper">
+            <p>
+              Don't have an account?
+              <a class="form-link" href="/user/register">register</a>
+            </p>
+          </div>
         </form>
       </main>
-  </div>
-  <%- include('../partials/footer') %>
+    </div>
+    <%- include('../partials/footer') %> 
     <%- include('../partials/scriptsConfig') %>
-</body>
-
+  </body>
 </html>
