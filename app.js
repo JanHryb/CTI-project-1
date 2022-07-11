@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
-const path = require("path");
 const httpStatusCodes = require("./config/httpStatusCodes");
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("express-flash");
 const mySqlStore = require("express-mysql-session")(session);
@@ -13,6 +13,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
+app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -38,8 +39,11 @@ app.use((req, res, next) => {
 });
 app.use((req, res, next) => {
   const url = req.originalUrl;
-  if (url != "/" && url.slice(-1) == "/") {
-    const correctUrl = url.slice(0, -1);
+  if (url != "/" && url[url.length - 1] == "/") {
+    let correctUrl = url.replace(/\/+$/, "");
+    if (correctUrl == "") {
+      correctUrl = "/";
+    }
     return res.redirect(correctUrl);
   }
   return next();

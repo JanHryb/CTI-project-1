@@ -2,21 +2,8 @@ const express = require("express");
 const httpStatusCodes = require("../config/httpStatusCodes");
 const router = express.Router();
 const database = require("../config/databaseMysql");
+const queryHelper = require("../utils/queryHelper");
 //TODO: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes#route_paths
-
-const orderBy = (sort) => {
-  if (sort == "price_desc") {
-    return "order by products.product_price desc";
-  } else if (sort == "price_asc") {
-    return "order by products.product_price asc";
-  } else if (sort == "name_asc") {
-    return "order by products.product_name asc";
-  } else if (sort == "name_desc") {
-    return "order by products.product_name desc";
-  } else {
-    return "order by products.product_price desc";
-  }
-};
 
 router.get("/", (req, res) => {
   database.query(`select * from product_category;`, (err, result) => {
@@ -38,7 +25,7 @@ router.get("/", (req, res) => {
       ` select products.product_id, products.product_name, products.product_description, products.product_price, products.product_amount, products.product_artist, products.product_release_date, products.product_route, products.product_image_path, product_category.product_category_route
         from products
         inner join product_category on products.product_category_id = product_category.product_category_id 
-        ${orderBy(sort)};`,
+        ${queryHelper.orderBy(sort)};`,
       (err, result) => {
         if (err) {
           console.log(err);
@@ -81,7 +68,7 @@ router.get("/:category", (req, res, next) => {
         database.query(
           ` select * from products 
             where product_category_id = ${category.product_category_id}
-            ${orderBy(sort)};`,
+            ${queryHelper.orderBy(sort)};`,
           (err, result) => {
             if (err) {
               console.log(err);
