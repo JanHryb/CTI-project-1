@@ -32,9 +32,9 @@ class Cart {
       }
     });
     if (existing) {
-      this.products = this.products.filter(
-        (item) => item.product_id !== product.product_id
-      );
+      this.products = this.products.filter((item) => {
+        return item.product_id !== product.product_id;
+      });
       this.quanity--;
       this.totalPrice -= product.product_price;
       return true;
