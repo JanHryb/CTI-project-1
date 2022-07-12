@@ -6,6 +6,7 @@ const session = require("express-session");
 const flash = require("express-flash");
 const mySqlStore = require("express-mysql-session")(session);
 const passport = require("passport");
+const localStorage = require("local-storage");
 
 const app = express();
 
@@ -35,6 +36,12 @@ app.use(passport.authenticate("session"));
 require("./config/passport");
 app.use((req, res, next) => {
   res.locals.authenticated = req.isAuthenticated();
+  if (
+    localStorage.get("cart") != null &&
+    localStorage.get("cart").quanity > 0
+  ) {
+    res.locals.cartQuanity = localStorage.get("cart").quanity;
+  }
   return next();
 });
 app.use((req, res, next) => {

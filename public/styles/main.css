@@ -73,6 +73,12 @@ body {
   color: #892cdc;
   transition: color 0.2s;
 }
+.menu .menu-item .menu-link i .menu-icon-shopping-cart-quanity {
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  color: #892cdc;
+  margin-left: 0.2em;
+}
 .menu .menu-item-user {
   position: relative;
 }
@@ -129,7 +135,7 @@ body {
   font-size: 0.9em;
 }
 
-.message-cart-status {
+.message-cart {
   color: #892cdc;
   font-size: 0.9em;
 }

@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
       console.log(err);
     }
     const productCategories = result;
-
+    // TODO: below change on logic implemented in cart
     let productCategoriesRoutes = [];
     productCategories.forEach((category) => {
       const route =
@@ -24,13 +24,15 @@ router.get("/", (req, res) => {
     database.query(
       ` select products.product_id, products.product_name, products.product_description, products.product_price, products.product_amount, products.product_artist, products.product_release_date, products.product_route, products.product_image_path, product_category.product_category_route
         from products
-        inner join product_category on products.product_category_id = product_category.product_category_id 
+        inner join product_category on products.product_category_id = product_category.product_category_id
+        where products.product_amount > 0 
         ${queryHelper.orderBy(sort)};`,
       (err, result) => {
         if (err) {
           console.log(err);
         }
         const products = result;
+        // TODO: below change on logic implemented in cart
         let productRoutes = [];
         products.forEach((product) => {
           const route =
@@ -68,12 +70,14 @@ router.get("/:category", (req, res, next) => {
         database.query(
           ` select * from products 
             where product_category_id = ${category.product_category_id}
+            and products.product_amount > 0 
             ${queryHelper.orderBy(sort)};`,
           (err, result) => {
             if (err) {
               console.log(err);
             }
             const products = result;
+            // TODO: below change on logic implemented in cart
             let productRoutes = [];
             products.forEach((product) => {
               const route =
@@ -105,7 +109,8 @@ router.get("/:category/:product", (req, res, next) => {
     from products
     inner join product_category on products.product_category_id = product_category.product_category_id
     where products.product_route = '${productRoute}'
-    and product_category.product_category_route = '${categoryRoute}';`,
+    and product_category.product_category_route = '${categoryRoute}'
+    and products.product_amount > 0;`,
     (err, result) => {
       if (err) {
         console.log(err);

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('../partials/headConfig') %>
+    <link rel="stylesheet" href="/styles/cart.css" />
     <title>cart</title>
   </head>
 
@@ -12,23 +13,48 @@
     <div class="container">
       <%- include('../partials/navbar') %>
       <main class="main">
-        <header class="heading-wrapper">
-          <h1 class="heading">cart</h1>
-        </header>
-        <% if (messages.cartStatus) { %>
-          <p class="message-cart-status"><%= messages.cartStatus %></p>
+        <% if(!exist){ %>
+          <header class="heading-wrapper">
+            <h1 class="heading">Cart</h1>
+          </header>
         <% } %> 
-        <% if(typeof products != 'undefined'){ %>
-          <% products.forEach((product)=>{%>
-            <p><%= product.product_id %></p>
-          <% })  %> 
+        <% if (messages.error) { %>
+          <p class="message-error"><%= messages.error %></p>
         <% } %>
-        <% if(typeof quanity != 'undefined'){ %>
-          <p><%= quanity %></p>
+        <% if (messages.cart) { %>
+          <p class="message-cart"><%= messages.cart %></p>
         <% } %>
-        <% if(typeof totalPrice != 'undefined'){ %>
-          <p><%= totalPrice %></p>
-        <% } %>
+        <% if(exist){ %> 
+        <section class="cart-wrapper">
+          <header class="heading-wrapper">
+            <h1 class="heading">cart (<%= quanity %>)</h1>
+            <a href="/cart/clear" class="cart-clear-button"><i class="fa-solid fa-trash-can"></i> clear cart</a>
+          </header>
+          <div class="cart-items-wrapper">
+            <% products.forEach((product)=>{ %>
+              <div class="cart-item">
+                <a href="/store/<%= product.product_category_route %>/<%= product.product_route %>" class="cart-item-image-link">
+                  <img src="<%= product.product_image_path %>" alt="<%= product.product_name %>" class="cart-item-image">
+                </a>
+                <a href="/store/<%= product.product_category_route %>/<%= product.product_route %>" class="cart-item-name-link"><%= product.product_name %></a>
+                <p class="cart-item-price"><%= product.product_price %> £</p>
+                <div class="cart-item-amount">
+                  1
+                  <p class="cart-item-amount-info">amount</p>
+                </div>
+                <a href="/cart/remove/<%= product.product_id %>" class="cart-item-delete-button">
+                  <i class="fa-solid fa-trash-can"></i>
+                </a>
+              </div>
+            <% }) %> 
+          </div>
+          <div class="cart-info-wrapper">
+            <p class="cart-info-total-price">Total: <%= totalPrice %> £</p>
+            <!-- TODO: checkout -->
+            <a href="" class="cart-info-checkout-button">Checkout</a>
+          </div>
+        </section>
+        <% } %> 
       </main>
     </div>
     <%- include('../partials/footer') %>

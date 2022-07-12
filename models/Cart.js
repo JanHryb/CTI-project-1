@@ -6,15 +6,15 @@ class Cart {
   }
 
   addProduct(product) {
-    let existing = false;
+    let exist = false;
 
     this.products.forEach((item) => {
       if (item.product_id == product.product_id) {
-        existing = true;
+        exist = true;
       }
     });
 
-    if (!existing) {
+    if (!exist) {
       this.products.push({ product_id: product.product_id });
       this.quanity++;
       this.totalPrice += product.product_price;
@@ -25,13 +25,13 @@ class Cart {
   }
 
   removeProduct(product) {
-    let existing = false;
+    let exist = false;
     this.products.forEach((item) => {
       if (item.product_id == product.product_id) {
-        existing = true;
+        exist = true;
       }
     });
-    if (existing) {
+    if (exist) {
       this.products = this.products.filter((item) => {
         return item.product_id !== product.product_id;
       });

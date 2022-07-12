@@ -29,7 +29,7 @@
             <p class="product-artist">Artist: <%= product.product_artist %> </p>
             <p class="product-release-date">Release date: <%= product.product_release_date.toLocaleDateString() %></p>
             <h4 class="product-price"><%= product.product_price %> £</h4>
-            <buttton class="product-add-to-cart-btn"><a href="" class="product-add-to-cart-btn-link">Add to cart</a></buttton>
+            <buttton class="product-add-to-cart-btn"><a href="/cart/add/<%= product.product_id %>" class="product-add-to-cart-btn-link">Add to cart</a></buttton>
           </div>
           <div class="product-description-wrapper">
             <p class="product-description"><%= product.product_description %></p>

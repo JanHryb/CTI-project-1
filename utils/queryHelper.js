@@ -12,4 +12,16 @@ const orderBy = (sort) => {
   }
 };
 
-module.exports = { orderBy };
+const whereIn = (productsArr) => {
+  let IN = "where products.product_id in(";
+  productsArr.forEach((value, index) => {
+    if (index != productsArr.length - 1) {
+      IN += `${value.product_id}, `;
+    } else {
+      IN += `${value.product_id})`;
+    }
+  });
+  return IN;
+};
+
+module.exports = { orderBy, whereIn };

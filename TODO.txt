@@ -1,3 +1,4 @@
-shopping cart logic
+checkout, order etc.
+update store routing -> store.js, store.ejs
 add to fav logic
 zrobic 'you are at category > product'
