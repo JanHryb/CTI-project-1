@@ -19,7 +19,7 @@
         <section class="product-categories-wrapper"> 
           <% productCategories.forEach((category, index)=>{ %>
           <div class="product-category-card">
-            <a href="<%= productCategoriesRoutes[index] %>" class="card-link">
+            <a href="store/<%= category.product_category_route %>" class="card-link">
               <img
                 src="<%= category.product_category_image_path %>"
                 alt="<%= category.product_category_name %>"
@@ -30,6 +30,12 @@
           </div>
           <% }) %> 
         </section>
+        <% if (messages.error) { %>
+          <p class="message-error"><%= messages.error %></p>
+        <% } %>
+        <% if (messages.cart) { %>
+          <p class="message-cart"><%= messages.cart %></p>
+        <% } %>
         <header class="heading-wrapper">
           <h2 class="heading">Products</h2>
         </header>
@@ -42,7 +48,7 @@
           </select>
         </form>
         <section class="products-wrapper">
-          <% products.forEach((product, index)=>{ %>
+          <% products.forEach((product)=>{ %>
           <div class="product-card">
             <div class="card-icons-wrapper">
               <!-- TODO: add to fav and add to cart link -->
@@ -53,11 +59,11 @@
                 <i class="fa-solid fa-cart-plus"></i> 
               </a>
             </div>
-            <a href="<%= productRoutes[index] %>" class="card-image-link">
+            <a href="/store/<%= product.product_category_route %>/<%= product.product_route %>" class="card-image-link">
               <img src="<%= product.product_image_path %>" alt="<%= product.product_name %>" class="card-image">
             </a>
             <div class="card-description">
-              <a href="<%= productRoutes[index] %>" class="card-description-link">
+              <a href="/store/<%= product.product_category_route %>/<%= product.product_route %> %>" class="card-description-link">
                 <p class="card-artist"><%= product.product_artist %></p>
                 <h4 class="card-title"><%= product.product_name %></h4>
               </a>

@@ -43,6 +43,10 @@ create table products   (product_id int auto_increment not null,
                         primary key(product_id),
                         foreign key(product_category_id) references product_category(product_category_id));
 
+create table favourites (favourite_product_id int unique not null,
+                        favourite_user_id int,
+                        foreign key(favourite_product_id) references products(product_id),
+                        foreign key(favourite_user_id) references users(user_id));
 #inserts
 
 insert into product_category(product_category_name, product_category_description, product_category_route, product_category_image_path)

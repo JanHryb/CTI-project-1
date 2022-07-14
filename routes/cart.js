@@ -72,10 +72,15 @@ router.get("/add/:id", (req, res, next) => {
       if (product != undefined) {
         if (cart.addProduct(product)) {
           localStorage.set("cart", cart);
-          return res.status(httpStatusCodes.Created).redirect("/cart");
+          req.flash("cart", "product added to cart");
+          return res
+            .status(httpStatusCodes.Created)
+            .redirect(req.headers.referer);
         } else {
           req.flash("error", "product already exist in cart");
-          return res.status(httpStatusCodes.BadRequest).redirect("/cart");
+          return res
+            .status(httpStatusCodes.BadRequest)
+            .redirect(req.headers.referer);
         }
       } else {
         return next();

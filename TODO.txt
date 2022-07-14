@@ -1,4 +1,3 @@
-checkout, order etc.
-update store routing -> store.js, store.ejs
 add to fav logic
+checkout, order etc.
 zrobic 'you are at category > product'

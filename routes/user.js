@@ -15,7 +15,18 @@ router.get("/orders", auth.authenticated, (req, res) => {
 });
 
 router.get("/favourites", auth.authenticated, (req, res) => {
-  return res.status(httpStatusCodes.OK).render("user/favourites");
+  // TODO: database query selecting all fav products
+  // return res.status(httpStatusCodes.OK).render("user/favourites");
+});
+
+router.get("/favourites/add/:id", auth.authenticated, (req, res) => {
+  // TODO:
+  const productId = req.params.id;
+});
+
+router.get("/favourites/remove/:id", auth.authenticated, (req, res) => {
+  // TODO:
+  const productId = req.params.id;
 });
 
 router.get("/register", auth.notAuthenticated, (req, res) => {

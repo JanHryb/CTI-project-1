@@ -6,50 +6,26 @@ const queryHelper = require("../utils/queryHelper");
 //TODO: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes#route_paths
 
 router.get("/", (req, res) => {
-  database.query(`select * from product_category;`, (err, result) => {
+  database.query(`select * from product_category`, (err, result) => {
     if (err) {
       console.log(err);
     }
     const productCategories = result;
-    // TODO: below change on logic implemented in cart
-    let productCategoriesRoutes = [];
-    productCategories.forEach((category) => {
-      const route =
-        req.originalUrl.split("?").shift() +
-        "/" +
-        category.product_category_route;
-      productCategoriesRoutes.push(route);
-    });
     const sort = req.query.sort;
     database.query(
-      ` select products.product_id, products.product_name, products.product_description, products.product_price, products.product_amount, products.product_artist, products.product_release_date, products.product_route, products.product_image_path, product_category.product_category_route
-        from products
-        inner join product_category on products.product_category_id = product_category.product_category_id
-        where products.product_amount > 0 
-        ${queryHelper.orderBy(sort)};`,
+      `
+    select * from products
+    inner join product_category on products.product_category_id = product_category.product_category_id
+    where products.product_amount > 0 
+    ${queryHelper.orderBy(sort)}`,
       (err, result) => {
         if (err) {
           console.log(err);
         }
         const products = result;
-        // TODO: below change on logic implemented in cart
-        let productRoutes = [];
-        products.forEach((product) => {
-          const route =
-            req.originalUrl.split("?").shift() +
-            "/" +
-            product.product_category_route +
-            "/" +
-            product.product_route;
-          productRoutes.push(route);
-        });
-        return res.status(httpStatusCodes.OK).render("store/store", {
-          productCategories,
-          productCategoriesRoutes,
-          products,
-          productRoutes,
-          sort,
-        });
+        return res
+          .status(httpStatusCodes.OK)
+          .render("store/store", { productCategories, products, sort });
       }
     );
   });
@@ -57,7 +33,6 @@ router.get("/", (req, res) => {
 
 router.get("/:category", (req, res, next) => {
   const categoryRoute = req.params.category;
-
   database.query(
     `select * from product_category where product_category_route = '${categoryRoute}';`,
     (err, result) => {
@@ -68,28 +43,18 @@ router.get("/:category", (req, res, next) => {
       if (category != undefined) {
         const sort = req.query.sort;
         database.query(
-          ` select * from products 
+          ` select * from products
             where product_category_id = ${category.product_category_id}
-            and products.product_amount > 0 
+            and products.product_amount > 0
             ${queryHelper.orderBy(sort)};`,
           (err, result) => {
             if (err) {
               console.log(err);
             }
             const products = result;
-            // TODO: below change on logic implemented in cart
-            let productRoutes = [];
-            products.forEach((product) => {
-              const route =
-                req.originalUrl.split("?").shift() +
-                "/" +
-                product.product_route;
-              productRoutes.push(route);
-            });
             return res.status(httpStatusCodes.OK).render("store/category", {
               category,
               products,
-              productRoutes,
               sort,
             });
           }

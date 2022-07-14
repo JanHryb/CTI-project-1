@@ -13,6 +13,12 @@
     <div class="container">
       <%- include('../partials/navbar') %>
       <main class="main">
+        <% if (messages.error) { %>
+          <p class="message-error"><%= messages.error %></p>
+        <% } %>
+        <% if (messages.cart) { %>
+          <p class="message-cart"><%= messages.cart %></p>
+        <% } %>
         <section class="product-wrapper">
           <div class="product-image-wrapper">
             <div class="card-icons-wrapper">
