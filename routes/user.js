@@ -4,7 +4,8 @@ const httpStatusCodes = require("../config/httpStatusCodes");
 const database = require("../config/databaseMysql");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const auth = require("../config/auth");
+const queryHelper = require("../utils/queryHelper");
+const auth = require("../middleware/auth");
 
 router.get("/", auth.authenticated, (req, res) => {
   return res.status(httpStatusCodes.OK).render("user/profile", req.user);
@@ -15,18 +16,117 @@ router.get("/orders", auth.authenticated, (req, res) => {
 });
 
 router.get("/favourites", auth.authenticated, (req, res) => {
-  // TODO: database query selecting all fav products
-  // return res.status(httpStatusCodes.OK).render("user/favourites");
+  database.query(
+    `select favourites.favourite_product_id from favourites where favourites.favourite_user_id = ${req.user.user_id}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      const favourites = result;
+      const productsIdArr = [];
+      favourites.forEach((fav) => {
+        productsIdArr.push({ product_id: fav.favourite_product_id });
+      });
+      if (favourites.length > 0) {
+        database.query(
+          `select * from products inner join product_category on products.product_category_id = product_category.product_category_id
+           ${queryHelper.whereIn(productsIdArr)}`,
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            const products = result;
+            res
+              .status(httpStatusCodes.OK)
+              .render("user/favourites", { products });
+          }
+        );
+      } else {
+        req.flash("favourite", "you don't have any favourite products yet");
+        res.status(httpStatusCodes.NotFound).render("user/favourites");
+      }
+    }
+  );
 });
 
-router.get("/favourites/add/:id", auth.authenticated, (req, res) => {
-  // TODO:
+router.get("/favourites/add/:id", auth.authenticated, (req, res, next) => {
   const productId = req.params.id;
+  if (Number.isNaN(Number(productId)) || req.headers.referer == undefined) {
+    return next();
+  }
+  database.query(
+    `select * from products where products.product_id = ${productId}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      const product = result[0];
+      if (product != undefined) {
+        database.query(
+          `select * from favourites where favourites.favourite_product_id = ${product.product_id} and favourites.favourite_user_id = ${req.user.user_id}`,
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            if (result[0] == undefined) {
+              database.query(
+                `insert into favourites(favourite_product_id, favourite_user_id) values (${product.product_id}, ${req.user.user_id})`,
+                (err, result) => {
+                  if (err) {
+                    if (err.errno == 1062) {
+                      return res
+                        .status(httpStatusCodes.BadRequest)
+                        .redirect(req.headers.referer);
+                    } else {
+                      console.log(err);
+                    }
+                  }
+                  return res
+                    .status(httpStatusCodes.Created)
+                    .redirect(req.headers.referer);
+                }
+              );
+            } else {
+              return res
+                .status(httpStatusCodes.BadRequest)
+                .redirect(req.headers.referer);
+            }
+          }
+        );
+      } else {
+        return next();
+      }
+    }
+  );
 });
 
 router.get("/favourites/remove/:id", auth.authenticated, (req, res) => {
-  // TODO:
   const productId = req.params.id;
+  if (Number.isNaN(Number(productId)) || req.headers.referer == undefined) {
+    return next();
+  }
+  database.query(
+    `select * from products where products.product_id = ${productId}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      const product = result[0];
+      if (product != undefined) {
+        database.query(
+          `delete from favourites where favourites.favourite_product_id = ${product.product_id} and favourites.favourite_user_id = ${req.user.user_id}`,
+          (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            return res.status(httpStatusCodes.OK).redirect(req.headers.referer);
+          }
+        );
+      } else {
+        return next();
+      }
+    }
+  );
 });
 
 router.get("/register", auth.notAuthenticated, (req, res) => {

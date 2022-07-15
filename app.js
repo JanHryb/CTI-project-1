@@ -6,7 +6,6 @@ const session = require("express-session");
 const flash = require("express-flash");
 const mySqlStore = require("express-mysql-session")(session);
 const passport = require("passport");
-const localStorage = require("local-storage");
 
 const app = express();
 
@@ -34,27 +33,11 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.authenticate("session"));
 require("./config/passport");
-app.use((req, res, next) => {
-  res.locals.authenticated = req.isAuthenticated();
-  if (
-    localStorage.get("cart") != null &&
-    localStorage.get("cart").quanity > 0
-  ) {
-    res.locals.cartQuanity = localStorage.get("cart").quanity;
-  }
-  return next();
-});
-app.use((req, res, next) => {
-  const url = req.originalUrl;
-  if (url != "/" && url[url.length - 1] == "/") {
-    let correctUrl = url.replace(/\/+$/, "");
-    if (correctUrl == "") {
-      correctUrl = "/";
-    }
-    return res.redirect(correctUrl);
-  }
-  return next();
-});
+app.use(require("./middleware/urlCheck"));
+app.use(require("./middleware/authenticationCheck"));
+app.use(require("./middleware/cartQanityCheck"));
+app.use(require("./middleware/getFavourites"));
+// routes
 app.use("/", require("./routes/index"));
 app.use("/user", require("./routes/user"));
 app.use("/store", require("./routes/store"));

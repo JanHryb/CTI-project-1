@@ -72,7 +72,7 @@ router.get("/add/:id", (req, res, next) => {
       if (product != undefined) {
         if (cart.addProduct(product)) {
           localStorage.set("cart", cart);
-          req.flash("cart", "product added to cart");
+          req.flash("success", "product added to cart");
           return res
             .status(httpStatusCodes.Created)
             .redirect(req.headers.referer);
