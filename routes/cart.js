@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
     localStorage.get("cart").products.length == 0
   ) {
     req.flash("cart", "cart is empty");
-    return res.status(httpStatusCodes.NotFound).render("cart/cart", { exist });
+    return res.status(httpStatusCodes.NotFound).render("store/cart", { exist });
   }
 
   exist = true;
@@ -42,7 +42,7 @@ router.get("/", (req, res) => {
       const products = result;
       return res
         .status(httpStatusCodes.OK)
-        .render("cart/cart", { products, quanity, totalPrice, exist });
+        .render("store/cart", { products, quanity, totalPrice, exist });
     }
   );
 });

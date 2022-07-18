@@ -42,6 +42,7 @@ app.use("/", require("./routes/index"));
 app.use("/user", require("./routes/user"));
 app.use("/store", require("./routes/store"));
 app.use("/cart", require("./routes/cart"));
+app.use("/checkout", require("./routes/checkout"));
 
 app.get("*", (req, res) => {
   return res.status(httpStatusCodes.NotFound).render("notFound");

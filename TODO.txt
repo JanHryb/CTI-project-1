@@ -1,2 +1,11 @@
-checkout, order etc.
-zrobic 'you are at category > product'
+TODO: checkout, order etc.
+  database
+    DONE: order, order details tables
+    transactions
+  node
+    check if user is logged in
+    validate cart data with database
+    form with address and shipping options
+    summary of order -> place an order
+TODO: zrobic 'you are at category > product' -> in the future
+

@@ -21,7 +21,10 @@ create table address    (address_id int auto_increment not null,
                         address_user_last_name varchar(50) not null,
                         address_user_email varchar(50) not null,
                         address_user_phone_number int(9) not null,
-                        primary key(address_id));
+                        user_id int not null,
+                        shipping_option_id int not null,
+                        primary key(address_id),
+                        foreign key(user_id) references users(user_id));
 
 create table product_category   (product_category_id int auto_increment not null,
                                 product_category_name varchar(50) not null,
@@ -47,6 +50,40 @@ create table favourites (favourite_product_id int not null,
                         favourite_user_id int,
                         foreign key(favourite_product_id) references products(product_id),
                         foreign key(favourite_user_id) references users(user_id));
+
+create table shipping_options (shipping_option_id int auto_increment not null,
+                              shipping_option_name varchar(100) not null,
+                              shipping_option_price decimal(5,2) unsigned not null,
+                              primary key(shipping_option_id));
+
+create table orders (order_id int auto_increment not null,
+                    user_id int not null,
+                    order_shipping_address_id int not null,
+                    shipping_option_id int not null,
+                    order_date date not null,
+                    order_shipped_date date,
+                    order_status varchar(60) not null,
+                    primary key(order_id),
+                    foreign key(shipping_option_id) references shipping_options(shipping_option_id));
+
+create table order_details  (order_id int not null,
+                            product_id int not null,
+                            order_details_ordered_quantity int not null,
+                            foreign key(product_id) references products(product_id),
+                            foreign key(order_id) references orders(order_id));
+
+create table payment_methods (payment_method_id int auto_increment not null,
+                              payment_method_name varchar(100) not null,
+                              primary key(payment_method_id));
+
+create table payments (payment_id int auto_increment not null,
+                      payment_method_id int not null,
+                      payment_amount decimal(12,2) not null,
+                      order_id int not null,
+                      primary key(payment_id),
+                      foreign key(payment_method_id) references payment_methods(payment_method_id),
+                      foreign key(order_id) references orders(order_id));
+
 #inserts
 
 insert into product_category(product_category_name, product_category_description, product_category_route, product_category_image_path)
@@ -64,3 +101,9 @@ values  ('Mona Lisa', 'It should come as no surprise that the most famous painti
         ('Owl', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a ipsum ex. Nam mattis hendrerit erat a varius. Morbi tincidunt at massa sit amet placerat. Vestibulum consequat justo metus, eu laoreet elit hendrerit nec. Aenean ornare congue velit, in dignissim massa. Ut ligula lectus, porttitor in ante ac, placerat vulputate justo. Phasellus rutrum magna vitae aliquam ultrices. Phasellus blandit accumsan ipsum, ac malesuada libero venenatis eget. Donec porta sem in sapien molestie sodales. Phasellus quam nulla, pulvinar vitae elit a, elementum laoreet lacus. Aenean ac luctus lacus, non congue neque. Integer tristique venenatis purus eu semper. Donec ante augue, consectetur quis tincidunt in, blandit ut lorem. In pulvinar nisl in luctus convallis', 4000, 1, 'Jan Hryb', '2022-05-09', '/images/store/products/owl.jpg', 'owl', 3),
         ('Glass', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a ipsum ex. Nam mattis hendrerit erat a varius. Morbi tincidunt at massa sit amet placerat. Vestibulum consequat justo metus, eu laoreet elit hendrerit nec. Aenean ornare congue velit, in dignissim massa. Ut ligula lectus, porttitor in ante ac, placerat vulputate justo. Phasellus rutrum magna vitae aliquam ultrices. Phasellus blandit accumsan ipsum, ac malesuada libero venenatis eget. Donec porta sem in sapien molestie sodales. Phasellus quam nulla, pulvinar vitae elit a, elementum laoreet lacus. Aenean ac luctus lacus, non congue neque. Integer tristique venenatis purus eu semper. Donec ante augue, consectetur quis tincidunt in, blandit ut lorem. In pulvinar nisl in luctus convallis', 3000, 1, 'Jan Hryb', '2022-07-07', '/images/store/products/glass.jpg', 'glass', 3),
         ('Lights', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a ipsum ex. Nam mattis hendrerit erat a varius. Morbi tincidunt at massa sit amet placerat. Vestibulum consequat justo metus, eu laoreet elit hendrerit nec. Aenean ornare congue velit, in dignissim massa. Ut ligula lectus, porttitor in ante ac, placerat vulputate justo. Phasellus rutrum magna vitae aliquam ultrices. Phasellus blandit accumsan ipsum, ac malesuada libero venenatis eget. Donec porta sem in sapien molestie sodales. Phasellus quam nulla, pulvinar vitae elit a, elementum laoreet lacus. Aenean ac luctus lacus, non congue neque. Integer tristique venenatis purus eu semper. Donec ante augue, consectetur quis tincidunt in, blandit ut lorem. In pulvinar nisl in luctus convallis', 2500, 1, 'Jan Hryb', '2022-04-30', '/images/store/products/lights.jpg', 'lights', 3);
+
+insert into shipping_options(shipping_option_name, shipping_option_price)
+values ('DHL', 15.00), ('InPost', 13.00), ('FedEx', 15.00), ('UPS', 16.00);
+
+insert into payment_methods(payment_method_name)
+values ('BLIK'), ('ING'), ('PKO'), ('MBANK');
