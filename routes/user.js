@@ -129,6 +129,18 @@ router.get("/favourites/remove/:id", auth.authenticated, (req, res) => {
   );
 });
 
+router.get("/favourites/clear", auth.authenticated, (req, res) => {
+  database.query(
+    `delete from favourites where favourites.favourite_user_id = ${req.user.user_id};`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      return res.redirect("/user/favourites");
+    }
+  );
+});
+
 router.get("/register", auth.notAuthenticated, (req, res) => {
   return res.status(httpStatusCodes.OK).render("user/register");
 });

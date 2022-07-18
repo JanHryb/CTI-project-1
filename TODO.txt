@@ -1,3 +1,2 @@
-add to fav logic
 checkout, order etc.
 zrobic 'you are at category > product'

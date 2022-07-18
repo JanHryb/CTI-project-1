@@ -12,9 +12,11 @@
     <div class="container">
       <%- include('../partials/navbar') %>
       <main class="main">
+        <% if(typeof products == 'undefined'){ %>
         <header class="heading-wrapper">
           <h1 class="heading">Favourites</h1>
         </header>
+        <% } %> 
         <% if (messages.success) { %>
           <p class="message-success"><%= messages.success %></p>
         <% } %>
@@ -24,29 +26,35 @@
         <% if (messages.favourite) { %>
           <p class="message-violet"><%= messages.favourite %></p>
         <% } %>
-        <% if(typeof products != 'undefined'){ %> 
-        <section class="favourite-products-wrapper">
-          <% products.forEach((product)=>{ %>
-            <div class="product-wrapper">
-              <a href="/store/<%= product.product_category_route %>/<%= product.product_route %>" class="product-image-link">
-                <img src="<%= product.product_image_path %>" alt="<%= product.product_name %>" class="product-image">
-              </a>
-              <a href="/store/<%= product.product_category_route %>/<%= product.product_route %>" class="product-name-link"><%= product.product_name %></a>
-              <p class="product-price"><%= product.product_price %> £</p>
-              <div class="product-amount">
-                1
-                <p class="product-amount-info">amount</p>
+        <% if(typeof products != 'undefined'){ %>
+        <section class="favourites-wrapper">
+          <header class="heading-wrapper">
+            <h1 class="heading">Favourites</h1>
+            <a href="/user/favourites/clear" class="favourites-clear-button"><i class="fa-solid fa-trash-can"></i> clear favourites</a>
+          </header>
+          <section class="favourite-products-wrapper">
+            <% products.forEach((product)=>{ %>
+              <div class="product-wrapper">
+                <a href="/store/<%= product.product_category_route %>/<%= product.product_route %>" class="product-image-link">
+                  <img src="<%= product.product_image_path %>" alt="<%= product.product_name %>" class="product-image">
+                </a>
+                <a href="/store/<%= product.product_category_route %>/<%= product.product_route %>" class="product-name-link"><%= product.product_name %></a>
+                <p class="product-price"><%= product.product_price %> £</p>
+                <div class="product-amount">
+                  1
+                  <p class="product-amount-info">amount</p>
+                </div>
+                <a href="/cart/add/<%= product.product_id %>" class="product-cart-button">
+                    <i class="fa-solid fa-cart-plus"></i> 
+                </a>
+                <a href="/user/favourites/remove/<%= product.product_id %>" class="product-delete-button">
+                  <i class="fa-solid fa-trash-can"></i>
+                </a>
               </div>
-              <a href="/cart/add/<%= product.product_id %>" class="product-cart-button">
-                  <i class="fa-solid fa-cart-plus"></i> 
-              </a>
-              <a href="/user/favourites/remove/<%= product.product_id %>" class="product-delete-button">
-                <i class="fa-solid fa-trash-can"></i>
-              </a>
-            </div>
-            <% }) %> 
+              <% }) %> 
+          </section>
+          <% } %> 
         </section>
-        <% } %> 
       </main>
     </div>
     <%- include('../partials/footer') %>
