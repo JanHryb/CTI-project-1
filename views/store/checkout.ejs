@@ -1,1 +1,35 @@
-<!-- TODO: -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('../partials/headConfig') %>
+    <link rel="stylesheet" href="/styles/checkout.css" />
+    <title>checkout · delivery & payment</title>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('../partials/navbar') %>
+      <main class="main">
+      <section class="delivery-payment-warpper">
+        <!-- TODO: style it with display grid! -->
+        <div class="order-info">
+          <!-- TODO: display ordered products, choosen devilery option -> js on front, price for all products, button sending to summary -->
+        </div>
+        <div class="delivery-wrapper">
+          <!-- TODO: form with input type radio, display delivery options from DB  -->
+        </div>
+        <div class="address-wraper">
+          <!-- TODO: form -> first name, last name, street, street number, postal code, city, email, phone number -->
+        </div>
+        <div class="payment-warapper">
+          <!-- TODO: form with input type radio, display payment options from DB  -->
+        </div>
+      </section>
+      </main>
+    </div>
+    <%- include('../partials/footer') %>
+    <%-include('../partials/scriptsConfig')%>
+  </body>
+</html>

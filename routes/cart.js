@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
   exist = true;
   const cart = localStorage.get("cart");
   const productsIdArr = cart.products;
-  const quanity = cart.quanity;
+  const quantity = cart.quantity;
   const totalPrice = cart.totalPrice;
   database.query(
     ` select *
@@ -42,7 +42,7 @@ router.get("/", (req, res) => {
       const products = result;
       return res
         .status(httpStatusCodes.OK)
-        .render("store/cart", { products, quanity, totalPrice, exist });
+        .render("store/cart", { products, quantity, totalPrice, exist });
     }
   );
 });

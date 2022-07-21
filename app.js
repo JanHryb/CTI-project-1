@@ -35,7 +35,7 @@ app.use(passport.authenticate("session"));
 require("./config/passport");
 app.use(require("./middleware/urlCheck"));
 app.use(require("./middleware/authenticationCheck"));
-app.use(require("./middleware/cartQanityCheck"));
+app.use(require("./middleware/cartQantityCheck"));
 app.use(require("./middleware/getFavourites"));
 // routes
 app.use("/", require("./routes/index"));

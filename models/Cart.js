@@ -1,7 +1,7 @@
 class Cart {
   constructor(oldCart) {
     this.products = oldCart.products || [];
-    this.quanity = oldCart.quanity || 0;
+    this.quantity = oldCart.quantity || 0;
     this.totalPrice = oldCart.totalPrice || 0;
   }
 
@@ -16,7 +16,7 @@ class Cart {
 
     if (!exist) {
       this.products.push({ product_id: product.product_id });
-      this.quanity++;
+      this.quantity++;
       this.totalPrice += product.product_price;
       return true;
     } else {
@@ -35,7 +35,7 @@ class Cart {
       this.products = this.products.filter((item) => {
         return item.product_id !== product.product_id;
       });
-      this.quanity--;
+      this.quantity--;
       this.totalPrice -= product.product_price;
       return true;
     } else {
@@ -45,7 +45,7 @@ class Cart {
 
   clearCart() {
     this.products = [];
-    this.quanity = 0;
+    this.quantity = 0;
     this.totalPrice = 0;
   }
 }
