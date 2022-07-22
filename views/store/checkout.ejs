@@ -12,24 +12,87 @@
     <div class="container">
       <%- include('../partials/navbar') %>
       <main class="main">
-      <section class="delivery-payment-warpper">
-        <!-- TODO: style it with display grid! -->
+      <form class="delivery-payment-form" action="/checkout" method="post">
         <div class="order-info">
-          <!-- TODO: display ordered products, choosen devilery option -> js on front, price for all products, button sending to summary -->
+          <div class="ordered-products-wrapper">
+            <% products.forEach((product) => { %> 
+            <div class="product">
+              <a href="/store/<%= product.product_category_route %>/<%= product.product_route %>" class="product-image-link">
+                <img src="<%= product.product_image_path %>" alt="<%= product.product_name %>" class="product-image">
+              </a>
+              <div class="product-name-amount-wrapper">
+                <a href="/store/<%= product.product_category_route %>/<%= product.product_route %>" class="product-name"><%= product.product_name %></a>
+                <p class="product-amount">1</p>
+              </div>
+              <p class="product-price"><%= product.product_price %> £</p>
+            </div>
+            <% }) %> 
+          </div>
+          <p class="choosen-shipping"></p>
+          <p class="choosen-payment"></p>
+          <p class="total-price">Total: <%= totalPrice %> £ + ship </p>
+          <div class="button-wrapper">
+            <button type="submit" class="submit-button">Summary</button>
+          </div>
         </div>
         <div class="delivery-wrapper">
-          <!-- TODO: form with input type radio, display delivery options from DB  -->
+        <h2 class="form-heading">Delivery</h2>
+          <% shippingOptions.forEach((option, index)=>{ %> 
+          <div class="radio-wrapper">
+            <input type="radio" name="shippingOption" id="<%= option.shipping_option_name %>" class="radio" value="<%= option.shipping_option_name %>" required <%= index == 0 ? 'checked' : ''%>>
+            <label for="<%= option.shipping_option_name %>" class="radio-label"><%= option.shipping_option_name %> (<%= option.shipping_option_price %> £)</label>
+          </div>
+          <% }) %> 
         </div>
         <div class="address-wraper">
-          <!-- TODO: form -> first name, last name, street, street number, postal code, city, email, phone number -->
+          <h2 class="form-heading">Shipping address</h2>
+          <div class="input-wrapper">
+            <label for="firstName" class="input-label">first name</label>
+            <input type="text" name="firstName" id="firstName" class="input" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="lastName" class="input-label">last name</label>
+            <input type="text" name="lastName" id="lastName" class="input" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="street" class="input-label">street</label>
+            <input type="text" name="street" id="street" class="input" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="streetNumber" class="input-label">street number</label>
+            <input type="text" name="streetNumber" id="streetNumber" class="input" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="postalCode" class="input-label">postal code</label>
+            <input type="text" name="postalCode" id="postalCode" class="input" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="city" class="input-label">city</label>
+            <input type="text" name="city" id="city" class="input" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="email" class="input-label">email</label>
+            <input type="email" name="email" id="email" class="input" required>
+          </div>
+          <div class="input-wrapper">
+            <label for="phoneNumber" class="input-label">phone number</label>
+            <input type="number" name="phoneNumber" id="phoneNumber" class="input" required>
+          </div>
         </div>
         <div class="payment-warapper">
-          <!-- TODO: form with input type radio, display payment options from DB  -->
+          <h2 class="form-heading">Payment</h2>
+          <% paymentMethods.forEach((method, index)=>{ %> 
+            <div class="radio-wrapper">
+              <input type="radio" name="paymentMethod" id="<%= method.payment_method_name %>" class="radio" value="<%= method.payment_method_name %>" required <%= index == 0 ? 'checked' : ''%>>
+              <label for="<%= method.payment_method_name %>" class="radio-label"><%= method.payment_method_name %></label>
+            </div>
+            <% }) %> 
         </div>
-      </section>
+      </form>
       </main>
     </div>
     <%- include('../partials/footer') %>
     <%-include('../partials/scriptsConfig')%>
+    <script src="/scripts/checkout.js"></script>
   </body>
 </html>

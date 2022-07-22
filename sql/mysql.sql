@@ -52,7 +52,7 @@ create table favourites (favourite_product_id int not null,
                         foreign key(favourite_user_id) references users(user_id));
 
 create table shipping_options (shipping_option_id int auto_increment not null,
-                              shipping_option_name varchar(100) not null,
+                              shipping_option_name varchar(100) unique not null,
                               shipping_option_price decimal(5,2) unsigned not null,
                               primary key(shipping_option_id));
 
@@ -73,7 +73,7 @@ create table order_details  (order_id int not null,
                             foreign key(order_id) references orders(order_id));
 
 create table payment_methods (payment_method_id int auto_increment not null,
-                              payment_method_name varchar(100) not null,
+                              payment_method_name varchar(100) unique not null,
                               primary key(payment_method_id));
 
 create table payments (payment_id int auto_increment not null,

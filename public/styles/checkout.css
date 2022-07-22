@@ -1,1 +1,170 @@
-/*# sourceMappingURL=checkout.css.map */
+.delivery-payment-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.25fr 4fr 2fr 0.25fr;
+  grid-template-rows: auto;
+  grid-template-areas: ".  delivery info ." ".  address info ." ".  payment info .";
+  -moz-column-gap: 1em;
+       column-gap: 1em;
+  row-gap: 1em;
+}
+.delivery-payment-form .order-info {
+  grid-area: info;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+.delivery-payment-form .order-info .ordered-products-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.delivery-payment-form .order-info .ordered-products-wrapper .product {
+  padding: 0.5em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #000000;
+}
+.delivery-payment-form .order-info .ordered-products-wrapper .product .product-image-link .product-image {
+  height: 60px;
+  width: 40px;
+  border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.delivery-payment-form .order-info .ordered-products-wrapper .product .product-name-amount-wrapper {
+  margin-right: 1em;
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.delivery-payment-form .order-info .ordered-products-wrapper .product .product-name-amount-wrapper .product-name {
+  text-decoration: none;
+  transition: -webkit-text-decoration 0.2s ease;
+  transition: text-decoration 0.2s ease;
+  transition: text-decoration 0.2s ease, -webkit-text-decoration 0.2s ease;
+  color: #000000;
+}
+.delivery-payment-form .order-info .ordered-products-wrapper .product .product-name-amount-wrapper .product-name:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  -webkit-text-decoration-color: #000000;
+          text-decoration-color: #000000;
+}
+.delivery-payment-form .order-info .ordered-products-wrapper .product .product-price {
+  margin-left: auto;
+}
+.delivery-payment-form .order-info .choosen-shipping {
+  font-size: 0.95em;
+  padding-right: 1em;
+  padding-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.delivery-payment-form .order-info .choosen-payment {
+  font-size: 0.95em;
+  padding-right: 1em;
+  padding-left: 1em;
+  margin-bottom: 1em;
+}
+.delivery-payment-form .order-info .total-price {
+  font-size: 1.2em;
+  text-align: center;
+  padding-right: 1em;
+  padding-left: 1em;
+  margin-bottom: 1em;
+}
+.delivery-payment-form .order-info .button-wrapper {
+  padding-right: 1em;
+  padding-left: 1em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.delivery-payment-form .order-info .button-wrapper .submit-button {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1em;
+  width: 100%;
+  border: none;
+  padding: 1.25em 1.25em;
+  border-radius: 5px;
+  background-color: #892cdc;
+  color: white;
+}
+.delivery-payment-form .order-info .button-wrapper .submit-button:hover {
+  cursor: pointer;
+}
+.delivery-payment-form .delivery-wrapper {
+  padding: 1em;
+  grid-area: delivery;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+.delivery-payment-form .delivery-wrapper .form-heading {
+  margin-bottom: 0.5em;
+}
+.delivery-payment-form .delivery-wrapper .radio-wrapper .radio {
+  accent-color: #892cdc;
+}
+.delivery-payment-form .delivery-wrapper .radio-wrapper .radio,
+.delivery-payment-form .delivery-wrapper .radio-wrapper .radio-label {
+  cursor: pointer;
+}
+.delivery-payment-form .address-wraper {
+  padding: 1em;
+  grid-area: address;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.delivery-payment-form .address-wraper .form-heading {
+  margin-bottom: 0.5em;
+}
+.delivery-payment-form .address-wraper .input-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 1em;
+}
+.delivery-payment-form .address-wraper .input-wrapper:first-child {
+  margin: 0;
+}
+.delivery-payment-form .address-wraper .input-wrapper .input-label {
+  color: #676767;
+}
+.delivery-payment-form .address-wraper .input-wrapper .input {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1em;
+  padding: 0.2em;
+  border: 2px solid #000000;
+  outline: none;
+  width: 450px;
+}
+.delivery-payment-form .payment-warapper {
+  padding: 1em;
+  grid-area: payment;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.delivery-payment-form .payment-warapper .form-heading {
+  margin-bottom: 0.5em;
+}
+.delivery-payment-form .payment-warapper .radio-wrapper .radio {
+  accent-color: #892cdc;
+}
+.delivery-payment-form .payment-warapper .radio-wrapper .radio,
+.delivery-payment-form .payment-warapper .radio-wrapper .radio-label {
+  cursor: pointer;
+}/*# sourceMappingURL=checkout.css.map */
