@@ -8,5 +8,4 @@ TODO: checkout, order etc.
     form with address and shipping options
     summary of order -> place an order
 TODO: zrobic 'you are at category > product' -> in the future
-jeszcze pytanko do swiatel, sa 2 swiatla mijania z przodu, 2 swiatla drogowe z przodu, 4 swiatla pozycyjne(2 z przodu i 2 z tylu), 1 swiatlo przeciwmgielne tylnie z tylu, lewy migacz 3 swiatla(lusterko, przod, tyl) i tak samo prawy, swiatla awaryjne czyli 6 swiatel(swiatla prawego i lewego migacza), 2 sw
 

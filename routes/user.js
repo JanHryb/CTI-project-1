@@ -5,6 +5,7 @@ const database = require("../config/databaseMysql");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const queryHelper = require("../utils/queryHelper");
+const formValidator = require("../utils/validateForm");
 const auth = require("../middleware/auth");
 
 router.get("/", auth.authenticated, (req, res) => {
@@ -161,29 +162,23 @@ router.get("/logout", auth.authenticated, (req, res, next) => {
 
 router.post("/register", (req, res) => {
   let { firstName, lastName, email, password, passwordRepeat } = req.body;
-  const hasWhiteSpace = (str) => {
-    return str.indexOf(" ") >= 0;
-  };
-  const capitalizeFirstLetter = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
-  firstName = capitalizeFirstLetter(firstName);
-  lastName = capitalizeFirstLetter(lastName);
+  firstName = formValidator.capitalizeFirstLetter(firstName);
+  lastName = formValidator.capitalizeFirstLetter(lastName);
   email = email.toLowerCase();
 
-  if (hasWhiteSpace(firstName)) {
+  if (formValidator.hasWhiteSpace(firstName)) {
     req.flash("error", "first name can't contain space");
     return res
       .status(httpStatusCodes.BadRequest)
       .render("user/register", req.body);
   }
-  if (hasWhiteSpace(lastName)) {
+  if (formValidator.hasWhiteSpace(lastName)) {
     req.flash("error", "last name can't contain space");
     return res
       .status(httpStatusCodes.BadRequest)
       .render("user/register", req.body);
   }
-  if (hasWhiteSpace(email)) {
+  if (formValidator.hasWhiteSpace(email)) {
     req.flash("error", "email can't contain space");
     return res
       .status(httpStatusCodes.BadRequest)

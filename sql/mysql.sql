@@ -22,7 +22,6 @@ create table address    (address_id int auto_increment not null,
                         address_user_email varchar(50) not null,
                         address_user_phone_number int(9) not null,
                         user_id int not null,
-                        shipping_option_id int not null,
                         primary key(address_id),
                         foreign key(user_id) references users(user_id));
 

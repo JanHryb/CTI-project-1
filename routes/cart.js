@@ -71,6 +71,7 @@ router.get("/add/:id", (req, res, next) => {
       const product = result[0];
       if (product != undefined) {
         if (cart.addProduct(product)) {
+          delete req.session.cart;
           localStorage.set("cart", cart);
           req.flash("success", "product added to cart");
           return res
@@ -116,6 +117,7 @@ router.get("/remove/:id", (req, res, next) => {
       const product = result[0];
       if (product != undefined) {
         if (cart.removeProduct(product)) {
+          delete req.session.cart;
           localStorage.set("cart", cart);
           return res.status(httpStatusCodes.OK).redirect("/cart");
         } else {
@@ -140,6 +142,7 @@ router.get("/clear", (req, res) => {
   }
 
   cart.clearCart();
+  delete req.session.cart;
   localStorage.set("cart", cart);
   return res.status(httpStatusCodes.OK).redirect("/cart");
 });

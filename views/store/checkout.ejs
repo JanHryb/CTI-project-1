@@ -46,37 +46,40 @@
         </div>
         <div class="address-wraper">
           <h2 class="form-heading">Shipping address</h2>
+          <% if (messages.error) { %>
+            <p class="message-error"><%= messages.error %></p>
+          <% } %>
           <div class="input-wrapper">
-            <label for="firstName" class="input-label">first name</label>
-            <input type="text" name="firstName" id="firstName" class="input" required>
+            <label for="firstName" class="input-label">First name</label>
+            <input type="text" name="firstName" id="firstName" class="input" value="<%= typeof bodyData.firstName && typeof bodyData != 'undefined' ? bodyData.firstName : '' %>" required>
           </div>
           <div class="input-wrapper">
-            <label for="lastName" class="input-label">last name</label>
-            <input type="text" name="lastName" id="lastName" class="input" required>
+            <label for="lastName" class="input-label">Last name</label>
+            <input type="text" name="lastName" id="lastName" class="input" value="<%= typeof bodyData.lastName != 'undefined' ? bodyData.lastName : '' %>" required>
           </div>
           <div class="input-wrapper">
-            <label for="street" class="input-label">street</label>
-            <input type="text" name="street" id="street" class="input" required>
+            <label for="street" class="input-label">Street</label>
+            <input type="text" name="street" id="street" class="input" value="<%= typeof bodyData.street != 'undefined' ? bodyData.street : '' %>" required>
           </div>
           <div class="input-wrapper">
-            <label for="streetNumber" class="input-label">street number</label>
-            <input type="text" name="streetNumber" id="streetNumber" class="input" required>
+            <label for="streetNumber" class="input-label">Street number</label>
+            <input type="text" name="streetNumber" id="streetNumber" class="input" value="<%= typeof bodyData.streetNumber != 'undefined' ? bodyData.streetNumber : '' %>" required>
           </div>
           <div class="input-wrapper">
-            <label for="postalCode" class="input-label">postal code</label>
-            <input type="text" name="postalCode" id="postalCode" class="input" required>
+            <label for="postalCode" class="input-label">Postal code</label>
+            <input type="text" name="postalCode" id="postalCode" class="input" value="<%= typeof bodyData.postalCode != 'undefined' ? bodyData.postalCode : '' %>" required>
           </div>
           <div class="input-wrapper">
-            <label for="city" class="input-label">city</label>
-            <input type="text" name="city" id="city" class="input" required>
+            <label for="city" class="input-label">City</label>
+            <input type="text" name="city" id="city" class="input" value="<%= typeof bodyData.city != 'undefined' ? bodyData.city : '' %>" required>
           </div>
           <div class="input-wrapper">
-            <label for="email" class="input-label">email</label>
-            <input type="email" name="email" id="email" class="input" required>
+            <label for="email" class="input-label">Email</label>
+            <input type="email" name="email" id="email" class="input" value="<%= typeof bodyData.email != 'undefined' ? bodyData.email : '' %>" required>
           </div>
           <div class="input-wrapper">
-            <label for="phoneNumber" class="input-label">phone number</label>
-            <input type="number" name="phoneNumber" id="phoneNumber" class="input" required>
+            <label for="phoneNumber" class="input-label">Phone number</label>
+            <input type="number" name="phoneNumber" id="phoneNumber" class="input" value="<%= typeof bodyData.phoneNumber != 'undefined' ? bodyData.phoneNumber : '' %>" required>
           </div>
         </div>
         <div class="payment-warapper">
