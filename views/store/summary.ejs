@@ -5,14 +5,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('../partials/headConfig') %>
-    <link rel="stylesheet" href="/styles/checkout.css" />
+    <link rel="stylesheet" href="/styles/summary.css" />
     <title>checkout · summary</title>
   </head>
   <body>
     <div class="container">
       <%- include('../partials/navbar') %>
       <main class="main">
-
+        <header class="heading-wrapper">
+          <h1 class="heading">Summary</h1>
+        </header>
+        <div class="summary-checkout-wrapper">
+          <div>
+            <h3 class="heading">Shipping address</h3>
+            <div class="address-wrapper">
+              <p class="address-item"><%= address.firstName %> <%= address.lastName %></p>
+              <p class="address-item"><%= address.street %> <%= address.streetNumber %></p> 
+              <p class="address-item"><%= address.city %> <%= address.postalCode %></p> 
+              <p class="address-item"><%= address.email %></p> 
+              <p class="address-item"><%= address.phoneNumber %></p> 
+            </div>
+          </div>
+          <div class="shipping-payment-info-wrapper">
+            <div>
+              <h3 class="heading">Shipping option</h3>
+              <p class="info-item"><%= shippingOptionName %></p>
+            </div>
+            <div>
+              <h3 class="heading">Payment method</h3>
+              <p class="info-item"><%= paymentMethodName%></p>
+            </div>
+          </div>
+        </div>
+        <div class="summary-cart-wrapper">
+          <% products.forEach((product)=>{ %>
+            <div class="product">
+                <img src="<%= product.product_image_path %>" alt="<%= product.product_name %>" class="product-image">
+              <div class="product-name-amount-wrapper">
+                <p class="product-name"><%= product.product_name %></p>
+                <p class="product-amount">1</p>
+              </div>
+              <p class="product-price"><%= product.product_price %> £</p>
+            </div>
+          <% }) %>
+        </div>
+        <div class="summary-place-order-wrapper">
+          <p class="price">Total: <%= totalPrice  %> £</p>
+          <form action="/checkout/summary" method="post" class="place-order-form">
+            <button type="submit" class="submit-button">Place an order</button>
+          </form>
+        </div>
       </main>
     </div>
     <%- include('../partials/footer') %>

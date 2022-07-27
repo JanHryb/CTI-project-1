@@ -57,12 +57,13 @@ create table shipping_options (shipping_option_id int auto_increment not null,
 
 create table orders (order_id int auto_increment not null,
                     user_id int not null,
-                    order_shipping_address_id int not null,
+                    address_id int not null,
                     shipping_option_id int not null,
                     order_date date not null,
                     order_shipped_date date,
                     order_status varchar(60) not null,
                     primary key(order_id),
+                    foreign key(address_id) references address(address_id),
                     foreign key(shipping_option_id) references shipping_options(shipping_option_id));
 
 create table order_details  (order_id int not null,

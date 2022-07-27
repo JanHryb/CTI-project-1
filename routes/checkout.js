@@ -23,7 +23,6 @@ router.get("/", auth.authenticated, async (req, res) => {
     return res.status(httpStatusCodes.NotFound).redirect("/cart");
   }
 
-  delete req.session.checkout;
   const cart = localStorage.get("cart");
   try {
     const validCart = await cartValidator.validateCart(cart);
@@ -136,11 +135,48 @@ router.get("/summary", auth.authenticated, (req, res) => {
     decodedCheckout = decoded;
   });
   // TODO:
-  //console.log(decodedCart.products);
-  return res
-    .status(httpStatusCodes.OK)
-    .render("store/summary", { decodedCart, decodedCheckout });
+  database.query(
+    ` select *
+    from products
+    inner join product_category on products.product_category_id = product_category.product_category_id
+    ${queryHelper.whereIn(decodedCart.products)}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      const products = result;
+      const address = decodedCheckout.address;
+      const totalPrice = decodedCheckout.totalPrice;
+      database.query(
+        `select * from shipping_options where shipping_option_id = ${decodedCheckout.shippingOptionId};`,
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          const shippingOptionName = result[0].shipping_option_name;
+          database.query(
+            `select * from payment_methods where payment_method_id = ${decodedCheckout.paymentMethodId};`,
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              }
+              const paymentMethodName = result[0].payment_method_name;
+              return res.status(httpStatusCodes.OK).render("store/summary", {
+                products,
+                address,
+                shippingOptionName,
+                paymentMethodName,
+                totalPrice,
+              });
+            }
+          );
+        }
+      );
+    }
+  );
 });
+
+router.post("/summary", (req, res) => {});
 
 router.post("/", (req, res) => {
   let {
@@ -211,6 +247,7 @@ router.post("/", (req, res) => {
           .redirect("/checkout");
       }
       const shippingOptionId = result[0].shipping_option_id;
+      const shippingOptionPrice = result[0].shipping_option_price;
       if (shippingOptionId != undefined) {
         database.query(
           `select * from payment_methods where payment_method_name = '${paymentMethod}';`,
@@ -226,6 +263,14 @@ router.post("/", (req, res) => {
                 .status(httpStatusCodes.InternalServerError)
                 .redirect("/checkout");
             }
+            let cart = req.session.cart;
+            jwt.verify(cart, process.env.JWT_SECRET, (err, decoded) => {
+              if (err) {
+                console.log(err);
+              }
+              cart = decoded.totalPrice;
+            });
+            console.log(cart);
             const paymentMethodId = result[0].payment_method_id;
             if (paymentMethodId != undefined) {
               const checkoutData = {
@@ -241,6 +286,7 @@ router.post("/", (req, res) => {
                 },
                 shippingOptionId,
                 paymentMethodId,
+                totalPrice: cart + shippingOptionPrice,
               };
               console.log(checkoutData);
               const singedCheckout = jwt.sign(
@@ -248,6 +294,7 @@ router.post("/", (req, res) => {
                 process.env.JWT_SECRET,
                 { expiresIn: "1d" }
               );
+              delete req.session.checkout;
               req.session.checkout = singedCheckout;
               return res
                 .status(httpStatusCodes.OK)

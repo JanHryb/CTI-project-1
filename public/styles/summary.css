@@ -1,0 +1,102 @@
+.main {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr 1fr 0.1fr;
+  grid-template-rows: auto;
+  grid-template-areas: ".  heading heading ." ".  checkout cart  ." ".  checkout placeorder  .";
+  -moz-column-gap: 1em;
+       column-gap: 1em;
+  row-gap: 1em;
+  align-items: flex-start;
+}
+
+.heading-wrapper {
+  grid-area: heading;
+}
+
+.summary-checkout-wrapper {
+  padding: 1em;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  grid-area: checkout;
+  display: flex;
+  justify-content: space-evenly;
+}
+.summary-checkout-wrapper .heading {
+  margin-bottom: 0.1em;
+}
+.summary-checkout-wrapper .shipping-payment-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.summary-cart-wrapper {
+  padding: 1em;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  grid-area: cart;
+}
+.summary-cart-wrapper .product {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-top: 2px solid #000000;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+.summary-cart-wrapper .product:first-child {
+  border: none;
+  padding-top: 0;
+}
+.summary-cart-wrapper .product:last-child {
+  padding-bottom: 0;
+}
+.summary-cart-wrapper .product .product-image {
+  height: 60px;
+  width: 40px;
+  border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.summary-cart-wrapper .product .product-name-amount-wrapper {
+  margin-right: 1em;
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.summary-cart-wrapper .product .product-name-amount-wrapper .product-name {
+  text-decoration: none;
+  transition: -webkit-text-decoration 0.2s ease;
+  transition: text-decoration 0.2s ease;
+  transition: text-decoration 0.2s ease, -webkit-text-decoration 0.2s ease;
+  color: #000000;
+}
+.summary-cart-wrapper .product .product-price {
+  margin-left: auto;
+}
+
+.summary-place-order-wrapper {
+  padding: 1em;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  grid-area: placeorder;
+}
+.summary-place-order-wrapper .price {
+  font-size: 1.2em;
+  text-align: center;
+  padding-right: 1em;
+  padding-left: 1em;
+  margin-bottom: 1em;
+}
+.summary-place-order-wrapper .place-order-form .submit-button {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1em;
+  width: 100%;
+  border: none;
+  padding: 1.25em 1.25em;
+  border-radius: 5px;
+  background-color: #892cdc;
+  color: white;
+}
+.summary-place-order-wrapper .place-order-form .submit-button:hover {
+  cursor: pointer;
+}/*# sourceMappingURL=summary.css.map */

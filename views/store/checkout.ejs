@@ -39,7 +39,7 @@
         <h2 class="form-heading">Delivery</h2>
           <% shippingOptions.forEach((option, index)=>{ %> 
           <div class="radio-wrapper">
-            <input type="radio" name="shippingOption" id="<%= option.shipping_option_name %>" class="radio" value="<%= option.shipping_option_name %>" required <%= index == 0 ? 'checked' : ''%>>
+            <input type="radio" name="shippingOption" id="<%= option.shipping_option_name %>" class="radio" value="<%= option.shipping_option_name %>" required>
             <label for="<%= option.shipping_option_name %>" class="radio-label"><%= option.shipping_option_name %> (<%= option.shipping_option_price %> £)</label>
           </div>
           <% }) %> 
@@ -86,7 +86,7 @@
           <h2 class="form-heading">Payment</h2>
           <% paymentMethods.forEach((method, index)=>{ %> 
             <div class="radio-wrapper">
-              <input type="radio" name="paymentMethod" id="<%= method.payment_method_name %>" class="radio" value="<%= method.payment_method_name %>" required <%= index == 0 ? 'checked' : ''%>>
+              <input type="radio" name="paymentMethod" id="<%= method.payment_method_name %>" class="radio" value="<%= method.payment_method_name %>" required >
               <label for="<%= method.payment_method_name %>" class="radio-label"><%= method.payment_method_name %></label>
             </div>
             <% }) %> 

@@ -4,14 +4,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const choosenShipping = document.querySelector(".choosen-shipping");
   const choosenPayment = document.querySelector(".choosen-payment");
 
-  choosenShipping.innerHTML = `shipping option: ${shippingRadioCheckboxes[0].value}`;
+  shippingRadioCheckboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      choosenShipping.innerHTML = `shipping option: ${checkbox.value}`;
+    }
+  });
   shippingRadioCheckboxes.forEach((checkbox) => {
     checkbox.addEventListener("change", () => {
       choosenShipping.innerHTML = `shipping option: ${checkbox.value}`;
     });
   });
 
-  choosenPayment.innerHTML = `payment method: ${paymentRadioCheckboxes[0].value}`;
+  paymentRadioCheckboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      choosenPayment.innerHTML = `shipping option: ${checkbox.value}`;
+    }
+  });
   paymentRadioCheckboxes.forEach((checkbox) => {
     checkbox.addEventListener("change", () => {
       choosenPayment.innerHTML = `payment method: ${checkbox.value}`;

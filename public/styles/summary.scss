@@ -1,0 +1,109 @@
+.main {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr 1fr 0.1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    ".  heading heading ."
+    ".  checkout cart  ."
+    ".  checkout placeorder  .";
+  column-gap: 1em;
+  row-gap: 1em;
+  align-items: flex-start;
+}
+.heading-wrapper {
+  grid-area: heading;
+}
+.summary-checkout-wrapper {
+  padding: 1em;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  grid-area: checkout;
+  display: flex;
+  justify-content: space-evenly;
+  .heading {
+    margin-bottom: 0.1em;
+  }
+  .address-wrapper {
+    .address-item {
+    }
+  }
+  .shipping-payment-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .info-item {
+    }
+  }
+}
+.summary-cart-wrapper {
+  padding: 1em;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  grid-area: cart;
+  .product {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid #000000;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    &:first-child {
+      border: none;
+      padding-top: 0;
+    }
+    &:last-child {
+      padding-bottom: 0;
+    }
+    .product-image {
+      height: 60px;
+      width: 40px;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+
+    .product-name-amount-wrapper {
+      margin-right: 1em;
+      margin-left: 1em;
+      display: flex;
+      flex-direction: column;
+      .product-name {
+        text-decoration: none;
+        transition: text-decoration 0.2s ease;
+        color: #000000;
+      }
+      // .product-amount {
+      // }
+    }
+    .product-price {
+      margin-left: auto;
+    }
+  }
+}
+.summary-place-order-wrapper {
+  padding: 1em;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  grid-area: placeorder;
+  .price {
+    font-size: 1.2em;
+    text-align: center;
+    padding-right: 1em;
+    padding-left: 1em;
+    margin-bottom: 1em;
+  }
+  .place-order-form {
+    .submit-button {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1em;
+      width: 100%;
+      border: none;
+      padding: 1.25em 1.25em;
+      border-radius: 5px;
+      background-color: #892cdc;
+      color: white;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
