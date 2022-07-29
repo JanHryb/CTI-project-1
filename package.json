@@ -28,6 +28,7 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "local-storage": "^2.0.0",
+    "moment": "^2.29.4",
     "mssql": "^8.1.2",
     "mysql": "^2.18.1",
     "passport": "^0.6.0",

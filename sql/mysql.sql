@@ -84,6 +84,36 @@ create table payments (payment_id int auto_increment not null,
                       foreign key(payment_method_id) references payment_methods(payment_method_id),
                       foreign key(order_id) references orders(order_id));
 
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE createAddress( address_street_name varchar(60), address_street_number varchar(40), address_city varchar(50), address_postal_code varchar(30), address_user_first_name varchar(50), address_user_last_name varchar(50), address_user_email varchar(50), address_user_phone_number int(9), user_id int )
+BEGIN
+  insert into address( address_street_name, address_street_number, address_city, address_postal_code, address_user_first_name, address_user_last_name, address_user_email, address_user_phone_number, user_id)
+  values ( address_street_name, address_street_number, address_city, address_postal_code, address_user_first_name, address_user_last_name, address_user_email, address_user_phone_number, user_id);
+  SELECT LAST_INSERT_ID();
+END $$
+
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE createOrder( user_id int, address_id int, shipping_option_id int, order_date date, order_shipped_date date, order_status varchar(60))
+BEGIN
+  INSERT INTO orders( user_id, address_id, shipping_option_id, order_date, order_shipped_date, order_status)
+  VALUES ( user_id, address_id, shipping_option_id, order_date, order_shipped_date, order_status);
+  SELECT LAST_INSERT_ID();
+END $$
+
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE createOrderDetail(order_id INT, product_id int, order_details_ordered_quantity int)
+BEGIN
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+  END;
+  START TRANSACTION;
+    insert into order_details(order_id, product_id, order_details_ordered_quantity) 
+    values (order_id, product_id, order_details_ordered_quantity);
+    update products set products.product_amount = products.product_amount - order_details_ordered_quantity where products.product_id = product_id;
+  COMMIT;
+END $$
+
 #inserts
 
 insert into product_category(product_category_name, product_category_description, product_category_route, product_category_image_path)
